@@ -1,6 +1,6 @@
 Package: IMMAN
 Title: Interlog protein network reconstruction by Mapping and Mining ANalysis
-Version: 1.0.0
+Version: 0.99.0
 Description: Reconstructing Interlog Protein Network (IPN) integrated from several 
              Protein protein Interaction Networks (PPINs). Using this package, 
              overlaying different PPINs to mine conserved common networks between diverse 
@@ -16,4 +16,7 @@ RoxygenNote: 6.0.1
 License: Artistic-2.0
 Encoding: UTF-8
 LazyData: true
-Imports: STRINGdb, seqinr, Biostrings, igraph
+Imports: STRINGdb, Biostrings, igraph
+Suggests: knitr,
+    rmarkdown
+VignetteBuilder: knitr
