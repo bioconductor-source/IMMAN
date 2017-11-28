@@ -784,7 +784,8 @@ IMMAN <- function(ProteinLists, fileNames = NULL, Species_IDs,
     reslist = list(IPNEdges = EdgeList , IPNNodes = OPS,
                    Networks = network_list,
                    maps = map_list)
-    plot(IPN)
+
+    plot(IPN, layout = layout_in_circle(IPN))
     message("DONE!")
     return(reslist)
   }
