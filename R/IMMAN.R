@@ -55,6 +55,7 @@
 #' @importFrom graphics plot
 #' @importFrom STRINGdb STRINGdb
 #' @importFrom utils read.csv
+#' @importFrom igraph layout_in_circle
 
 IMMAN <- function(ProteinLists, fileNames = NULL, Species_IDs,
                  identityU, substitutionMatrix,
