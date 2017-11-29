@@ -16,6 +16,6 @@ RoxygenNote: 6.0.1
 License: Artistic-2.0
 Encoding: UTF-8
 LazyData: true
-Imports: STRINGdb, Biostrings, igraph, graphics, utils
+Imports: STRINGdb, Biostrings, igraph, graphics, utils, seqinr
 Suggests: RUnit, BiocGenerics
 VignetteBuilder: knitr
