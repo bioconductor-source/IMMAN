@@ -67,6 +67,43 @@ PPINs to mine conserved common network between diverse species. It helps to retr
 IPN with different degrees of conservation to have better protein function
 prediction and PPIN analysis.
 }
+\examples{
+data(H.sapiens)
+data(R.norvegicus)
+
+ProteinLists = list(as.character(H.sapiens$V1), as.character(R.norvegicus$V1))
+
+List1_Species_ID = 9606  # taxonomy ID List1 Homo sapiens
+List2_Species_ID = 10116 # taxonomy ID List2 Rat
+
+Species_IDs  = c(List1_Species_ID, List2_Species_ID)
+
+identityU = 30
+substitutionMatrix = "BLOSUM62"
+gapOpening = -8
+gapExtension = -8
+NetworkShrinkage = FALSE
+coverage = 1
+BestHit = TRUE
+score_threshold = 400
+STRINGversion="10"
+
+# Run the IMMAN function for the parameters
+output = IMMAN(ProteinLists, fileNames=NULL, Species_IDs,
+              identityU, substitutionMatrix,
+              gapOpening, gapExtension, BestHit,
+              coverage, NetworkShrinkage,
+              score_threshold, STRINGversion,
+              InputDirectory = getwd())
+
+output$IPNEdges
+output$IPNNodes
+output$Networks
+output$Networks[[1]]
+output$maps
+output$maps[[2]]
+
+}
 \seealso{
 \code{\link[Biostrings]{PairwiseAlignments}}
 }
