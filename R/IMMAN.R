@@ -111,46 +111,46 @@ IMMAN <- function(ProteinLists, fileNames = NULL, Species_IDs,
 
   combination3 <- function(L1, L2, L3) {
 
-    # res1_temp <- unlist(Lists[1])
-    # res2_temp <- unlist(Lists[2])
-    # res3_temp <- unlist(Lists[3])
+    # res1_tem <- unlist(Lists[1])
+    # res2_tem <- unlist(Lists[2])
+    # res3_tem <- unlist(Lists[3])
 
-    res1_temp <- L1
-    res2_temp <- L2
-    res3_temp <- L3
+    res1_tem <- L1
+    res2_tem <- L2
+    res3_tem <- L3
 
     # combination
     x.names <- character(0)
     y.names <- character(0)
     z.names <- character(0)
-    for (i in 1 : nrow(res1_temp)) {
+    for (i in 1 : nrow(res1_tem)) {
 
-      if (sum(res1_temp[i, ]) == 1) {
-        vec_temp <- res2_temp[i, ] * res3_temp[(res1_temp[i,] == 1), ]
-        if (sum(vec_temp) >= 1) {
-          x.names <- c(x.names, rep(rownames(res1_temp)[i], sum(vec_temp)))
-          y.names <- c(y.names, rep(rownames(res3_temp)[(res1_temp[i,] == 1)], sum(vec_temp)))
-          z.names <- c(z.names, colnames(res3_temp)[vec_temp == 1])
+      if (sum(res1_tem[i, ]) == 1) {
+        vec_tem <- res2_tem[i, ] * res3_tem[(res1_tem[i,] == 1), ]
+        if (sum(vec_tem) >= 1) {
+          x.names <- c(x.names, rep(rownames(res1_tem)[i], sum(vec_tem)))
+          y.names <- c(y.names, rep(rownames(res3_tem)[(res1_tem[i,] == 1)], sum(vec_tem)))
+          z.names <- c(z.names, colnames(res3_tem)[vec_tem == 1])
         }
       }
 
-      if (sum(res1_temp[i, ]) > 1) {
-        list_temp <- apply(cbind(res3_temp[(res1_temp[i,] == 1), ], which(res1_temp[i,] == 1)), 1,
+      if (sum(res1_tem[i, ]) > 1) {
+        list_tem <- apply(cbind(res3_tem[(res1_tem[i,] == 1), ], which(res1_tem[i,] == 1)), 1,
                            function(x) {
-                             vec_temp <- res2_temp[i, ] * x[-length(x)]
-                             if (sum(vec_temp) >= 1) {
-                               x.names_temp <- rep(rownames(res1_temp)[i], sum(vec_temp))
-                               y.names_temp <- rep(rownames(res3_temp)[x[length(x)]], sum(vec_temp))
-                               z.names_temp <- colnames(res3_temp)[vec_temp == 1]
-                               list(xx = x.names_temp,
-                                    yy = y.names_temp,
-                                    zz = z.names_temp)
+                             vec_tem <- res2_tem[i, ] * x[-length(x)]
+                             if (sum(vec_tem) >= 1) {
+                               x.names_tem <- rep(rownames(res1_tem)[i], sum(vec_tem))
+                               y.names_tem <- rep(rownames(res3_tem)[x[length(x)]], sum(vec_tem))
+                               z.names_tem <- colnames(res3_tem)[vec_tem == 1]
+                               list(xx = x.names_tem,
+                                    yy = y.names_tem,
+                                    zz = z.names_tem)
                              }
                            })
 
         x.names <- c(x.names, unlist(lapply(list , function(x) unlist(x[1]))))
-        y.names <- c(y.names, unlist(lapply(list_temp, function(x) unlist(x[2]))))
-        z.names <- c(z.names, unlist(lapply(list_temp, function(x) unlist(x[3]))))
+        y.names <- c(y.names, unlist(lapply(list_tem, function(x) unlist(x[2]))))
+        z.names <- c(z.names, unlist(lapply(list_tem, function(x) unlist(x[3]))))
       }
     }
 
@@ -205,7 +205,7 @@ IMMAN <- function(ProteinLists, fileNames = NULL, Species_IDs,
 
   message("Step 2/4: Alignment...")
 
-  temp_list <- list()
+  tem_list <- list()
   res_list <- list()
   for (i in 1 : (list_num - 1)) {
     for (j in (i + 1) : list_num) {
@@ -217,43 +217,43 @@ IMMAN <- function(ProteinLists, fileNames = NULL, Species_IDs,
       rownames(res) <- ProteinLists[[i]]
       colnames(res) <- ProteinLists[[j]]
       indx = res == 1
-      temp_list = c(temp_list, list(indx * unbinres))
+      tem_list = c(tem_list, list(indx * unbinres))
       res[res == 1] <- 0
       res_list <- c(res_list, list(res))
     }
   }
 
   pair_num <- list_num * (list_num - 1) / 2
-  names(temp_list) <- paste("temp", seq(1 : pair_num), sep = "")
+  names(tem_list) <- paste("tem", seq(1 : pair_num), sep = "")
   names(res_list) <- paste("res", seq(1 : pair_num), sep = "")
 
-  # temp_list_backup <- temp_list
+  # tem_list_backup <- tem_list
   # res_list_backup <- res_list
   #
-  # temp_list <- temp_list_backup
+  # tem_list <- tem_list_backup
   # res_list  <- res_list_backup
 
   if (BestHit == TRUE) {
     for (i in 1 : pair_num) {
-      temp_list[[i]] <- apply(temp_list[[i]], 1, function(x) {
-        ind_temp <- which(x == max(x))
-        if (length(ind_temp) > 1) colnames(temp_list[[i]])[ind_temp][apply(temp_list[[i]][, ind_temp], 2, max) == x[ind_temp]]
-        else colnames(temp_list[[i]])[ind_temp][max(temp_list[[i]][, ind_temp]) == x[ind_temp]]
+      tem_list[[i]] <- apply(tem_list[[i]], 1, function(x) {
+        ind_tem <- which(x == max(x))
+        if (length(ind_tem) > 1) colnames(tem_list[[i]])[ind_tem][apply(tem_list[[i]][, ind_tem], 2, max) == x[ind_tem]]
+        else colnames(tem_list[[i]])[ind_tem][max(tem_list[[i]][, ind_tem]) == x[ind_tem]]
       })
 
-      for (j in 1 : length(temp_list[[i]])) {
-        if (length(unlist(temp_list[[i]][j])) > 0) res_list[[i]][names(temp_list[[i]][j]), unlist(temp_list[[i]][j])] <- 1
+      for (j in 1 : length(tem_list[[i]])) {
+        if (length(unlist(tem_list[[i]][j])) > 0) res_list[[i]][names(tem_list[[i]][j]), unlist(tem_list[[i]][j])] <- 1
       }
     }
   }
   if( BestHit == FALSE){
     for (i in 1 : pair_num) {
-      temp_list[[i]] <- apply(temp[[i]], 1, function(x) {
-        colnames(temp[[i]])[x != 0]
+      tem_list[[i]] <- apply(tem[[i]], 1, function(x) {
+        colnames(tem[[i]])[x != 0]
       })
 
-      for (j in 1 : length(temp_list[[i]])) {
-        if (length(unlist(temp_list[[i]][j])) > 0) res_list[[i]][names(temp_list[[i]][j]), unlist(temp_list[[i]][j])] <- 1
+      for (j in 1 : length(tem_list[[i]])) {
+        if (length(unlist(tem_list[[i]][j])) > 0) res_list[[i]][names(tem_list[[i]][j]), unlist(tem_list[[i]][j])] <- 1
       }
     }
   }
@@ -268,26 +268,25 @@ IMMAN <- function(ProteinLists, fileNames = NULL, Species_IDs,
                                                           score_threshold = score_threshold,
                                                           input_directory = getwd())))
   }
-
   if (list_num == 4) {
     # 1-2
-    x_temp1 <- rep(names(temp_list[[1]]), unlist(lapply(temp_list[[1]], length)))
-    y_temp1 <- unlist(temp_list[[1]])
+    x_tem1 <- rep(names(tem_list[[1]]), unlist(lapply(tem_list[[1]], length)))
+    y_tem1 <- unlist(tem_list[[1]])
     # 1-3
-    x_temp2 <- rep(names(temp_list[[2]]), unlist(lapply(temp_list[[2]], length)))
-    z_temp1 <- unlist(temp_list[[2]])
+    x_tem2 <- rep(names(tem_list[[2]]), unlist(lapply(tem_list[[2]], length)))
+    z_tem1 <- unlist(tem_list[[2]])
     # 1-4
-    x_temp3 <- rep(names(temp_list[[3]]), unlist(lapply(temp_list[[3]], length)))
-    w_temp1 <- unlist(temp_list[[3]])
+    x_tem3 <- rep(names(tem_list[[3]]), unlist(lapply(tem_list[[3]], length)))
+    w_tem1 <- unlist(tem_list[[3]])
     # 2-3
-    y_temp2 <- rep(names(temp_list[[4]]), unlist(lapply(temp_list[[4]], length)))
-    z_temp2 <- unlist(temp_list[[4]])
+    y_tem2 <- rep(names(tem_list[[4]]), unlist(lapply(tem_list[[4]], length)))
+    z_tem2 <- unlist(tem_list[[4]])
     # 2-4
-    y_temp3 <- rep(names(temp_list[[5]]), unlist(lapply(temp_list[[5]], length)))
-    w_temp2 <- unlist(temp_list[[5]])
+    y_tem3 <- rep(names(tem_list[[5]]), unlist(lapply(tem_list[[5]], length)))
+    w_tem2 <- unlist(tem_list[[5]])
     # 3-4
-    z_temp3 <- rep(names(temp_list[[6]]), unlist(lapply(temp_list[[6]], length)))
-    w_temp3 <- unlist(temp_list[[6]])
+    z_tem3 <- rep(names(tem_list[[6]]), unlist(lapply(tem_list[[6]], length)))
+    w_tem3 <- unlist(tem_list[[6]])
 
     # x-y-z
     list.names1 <- combination3(res_list[[1]], res_list[[2]], res_list[[4]])
@@ -324,21 +323,21 @@ IMMAN <- function(ProteinLists, fileNames = NULL, Species_IDs,
     mat.xyzw <- matrix(NA, nrow = 1, ncol = 4)
     for (i in 1 : length(y.inters2)) {
       for (j in 1 : length(y.inters2[[i]])) {
-        z_temp <- mat.xyz2[(mat.xyz2[,1] == x.inters2[i]) & (mat.xyz2[,2] == y.inters2[[i]][j]), 3]
-        w_temp <- mat.xyw2[(mat.xyw2[,1] == x.inters2[i]) & (mat.xyw2[,2] == y.inters2[[i]][j]), 3]
-        res6_temp.sub <- matrix(res_list[[6]][z_temp,w_temp], ncol = length(w_temp), nrow = length(z_temp), T)
-        sum_temp <- sum(res6_temp.sub)
-        if (sum_temp > 0) {
-          temp.mat <- matrix(NA, nrow = 1, ncol = 2)
-          for (k in 1 : length(z_temp)) {
-            temp.mat <- rbind(temp.mat, t(rbind(rep(z_temp[k], sum(res6_temp.sub[k,])),
-                                                w_temp[res6_temp.sub[k,] == 1])))
+        z_tem <- mat.xyz2[(mat.xyz2[,1] == x.inters2[i]) & (mat.xyz2[,2] == y.inters2[[i]][j]), 3]
+        w_tem <- mat.xyw2[(mat.xyw2[,1] == x.inters2[i]) & (mat.xyw2[,2] == y.inters2[[i]][j]), 3]
+        res6_tem.sub <- matrix(res_list[[6]][z_tem,w_tem], ncol = length(w_tem), nrow = length(z_tem), T)
+        sum_tem <- sum(res6_tem.sub)
+        if (sum_tem > 0) {
+          tem.mat <- matrix(NA, nrow = 1, ncol = 2)
+          for (k in 1 : length(z_tem)) {
+            tem.mat <- rbind(tem.mat, t(rbind(rep(z_tem[k], sum(res6_tem.sub[k,])),
+                                                w_tem[res6_tem.sub[k,] == 1])))
           }
-          temp.mat <- matrix(temp.mat[-1, ], ncol = 2, nrow = nrow(temp.mat) - 1)
+          tem.mat <- matrix(tem.mat[-1, ], ncol = 2, nrow = nrow(tem.mat) - 1)
           mat.xyzw <- rbind(mat.xyzw,
-                            cbind(matrix(c(rep(x.inters2[i], sum_temp),
-                                           rep(y.inters1[[i]][j], sum_temp)), ncol = 2, nrow = sum_temp),
-                                  temp.mat))
+                            cbind(matrix(c(rep(x.inters2[i], sum_tem),
+                                           rep(y.inters1[[i]][j], sum_tem)), ncol = 2, nrow = sum_tem),
+                                  tem.mat))
         }
       }
     }
@@ -390,26 +389,26 @@ IMMAN <- function(ProteinLists, fileNames = NULL, Species_IDs,
     OPS <- data.frame(node1 = OPS[, 5], node2 = OPS[, 6], node3 = OPS[, 7], node4 = OPS[, 8])
 
     OPSLabel = c()
-    flag_temp <- T
+    flag_tem <- TRUE
     if (nrow(OPS) > 10) {OPSLabel = c(OPSLabel, paste("OPS000", c(1 : 9), sep=""))
     } else {
       OPSLabel = c(OPSLabel, paste("OPS000", c(1 : nrow(OPS)), sep=""))
-      flag_temp <- F
+      flag_tem <- FALSE
     }
     if (nrow(OPS) > 100) {OPSLabel = c(OPSLabel, paste("OPS00", c(10 : 99), sep=""))
     } else {
-      if (flag_temp) OPSLabel = c(OPSLabel, paste("OPS00", c(10 : nrow(OPS)), sep=""))
-      flag_temp <- F
+      if (flag_tem) OPSLabel = c(OPSLabel, paste("OPS00", c(10 : nrow(OPS)), sep=""))
+      flag_tem <- FALSE
     }
     if (nrow(OPS) > 1000) {OPSLabel = c(OPSLabel, paste("OPS00", c(100 : 999), sep=""))
     } else {
-      if (flag_temp) OPSLabel = c(OPSLabel, paste("OPS00", c(100 : nrow(OPS)), sep=""))
-      flag_temp <- F
+      if (flag_tem) OPSLabel = c(OPSLabel, paste("OPS00", c(100 : nrow(OPS)), sep=""))
+      flag_tem <- FALSE
     }
     if (nrow(OPS) > 10000) {OPSLabel = c(OPSLabel, paste("OPS00", c(1000 : 9999), sep=""))
     } else {
-      if (flag_temp) OPSLabel = c(OPSLabel, paste("OPS00", c(1000 : nrow(OPS)), sep=""))
-      flag_temp <- F
+      if (flag_tem) OPSLabel = c(OPSLabel, paste("OPS00", c(1000 : nrow(OPS)), sep=""))
+      flag_tem <- FALSE
     }
 
     OPS <- cbind(OPS, OPSLabel = OPSLabel)
@@ -456,7 +455,7 @@ IMMAN <- function(ProteinLists, fileNames = NULL, Species_IDs,
     l = nrow(OPS)
     # i = 1
     for (i in 1 : (l - 1)) {
-      node_temp <- apply(OPS[c((i + 1) : l), ], 1, function(x){
+      node_tem <- apply(OPS[c((i + 1) : l), ], 1, function(x){
         a = c(as.character(OPS[i,1]) , as.character(x[1]))
         b = c(as.character(OPS[i,2]) , as.character(x[2]))
         c = c(as.character(OPS[i,3]) , as.character(x[3]))
@@ -493,9 +492,9 @@ IMMAN <- function(ProteinLists, fileNames = NULL, Species_IDs,
         }
       })
 
-      if (! is.null(node_temp)) {
-        node1 <- c(node1, unlist(node_temp)[seq(1, length(unlist(node_temp)), 2)])
-        node2 <- c(node2, unlist(node_temp)[seq(2, length(unlist(node_temp)), 2)])
+      if (! is.null(node_tem)) {
+        node1 <- c(node1, unlist(node_tem)[seq(1, length(unlist(node_tem)), 2)])
+        node2 <- c(node2, unlist(node_tem)[seq(2, length(unlist(node_tem)), 2)])
       }
     }
 
@@ -506,14 +505,14 @@ IMMAN <- function(ProteinLists, fileNames = NULL, Species_IDs,
   }
   if (list_num == 3) {
     # 1-2
-    x_temp1 <- rep(names(temp_list[[1]]), unlist(lapply(temp_list[[1]], length)))
-    y_temp1 <- unlist(temp_list[[1]])
+    x_tem1 <- rep(names(tem_list[[1]]), unlist(lapply(tem_list[[1]], length)))
+    y_tem1 <- unlist(tem_list[[1]])
     # 1-3
-    x_temp2 <- rep(names(temp_list[[2]]), unlist(lapply(temp_list[[2]], length)))
-    z_temp1 <- unlist(temp_list[[2]])
+    x_tem2 <- rep(names(tem_list[[2]]), unlist(lapply(tem_list[[2]], length)))
+    z_tem1 <- unlist(tem_list[[2]])
     # 2-3
-    y_temp2 <- rep(names(temp_list[[3]]), unlist(lapply(temp_list[[3]], length)))
-    z_temp2 <- unlist(temp_list[[3]])
+    y_tem2 <- rep(names(tem_list[[3]]), unlist(lapply(tem_list[[3]], length)))
+    z_tem2 <- unlist(tem_list[[3]])
 
     # combination
     x.names <- character(0)
@@ -522,31 +521,31 @@ IMMAN <- function(ProteinLists, fileNames = NULL, Species_IDs,
     for (i in 1 : nrow(res_list[[1]])) {
 
       if (sum(res_list[[1]][i, ]) == 1) {
-        vec_temp <- res_list[[2]][i, ] * res_list[[3]][(res_list[[1]][i,] == 1), ]
-        if (sum(vec_temp) >= 1) {
-          x.names <- c(x.names, rep(rownames(res_list[[1]])[i], sum(vec_temp)))
-          y.names <- c(y.names, rep(rownames(res_list[[3]])[(res_list[[1]][i,] == 1)], sum(vec_temp)))
-          z.names <- c(z.names, colnames(res_list[[3]])[vec_temp == 1])
+        vec_tem <- res_list[[2]][i, ] * res_list[[3]][(res_list[[1]][i,] == 1), ]
+        if (sum(vec_tem) >= 1) {
+          x.names <- c(x.names, rep(rownames(res_list[[1]])[i], sum(vec_tem)))
+          y.names <- c(y.names, rep(rownames(res_list[[3]])[(res_list[[1]][i,] == 1)], sum(vec_tem)))
+          z.names <- c(z.names, colnames(res_list[[3]])[vec_tem == 1])
         }
       }
 
       if (sum(res_list[[1]][i, ]) > 1) {
-        list_temp <- apply(cbind(res_list[[3]][(res_list[[1]][i,] == 1), ], which(res_list[[1]][i,] == 1)), 1,
+        list_tem <- apply(cbind(res_list[[3]][(res_list[[1]][i,] == 1), ], which(res_list[[1]][i,] == 1)), 1,
                            function(x) {
-                             vec_temp <- res_list[[2]][i, ] * x[-length(x)]
-                             if (sum(vec_temp) >= 1) {
-                               x.names_temp <- rep(rownames(res_list[[1]])[i], sum(vec_temp))
-                               y.names_temp <- rep(rownames(res_list[[3]])[x[length(x)]], sum(vec_temp))
-                               z.names_temp <- colnames(res_list[[3]])[vec_temp == 1]
-                               list(xx = x.names_temp,
-                                    yy = y.names_temp,
-                                    zz = z.names_temp)
+                             vec_tem <- res_list[[2]][i, ] * x[-length(x)]
+                             if (sum(vec_tem) >= 1) {
+                               x.names_tem <- rep(rownames(res_list[[1]])[i], sum(vec_tem))
+                               y.names_tem <- rep(rownames(res_list[[3]])[x[length(x)]], sum(vec_tem))
+                               z.names_tem <- colnames(res_list[[3]])[vec_tem == 1]
+                               list(xx = x.names_tem,
+                                    yy = y.names_tem,
+                                    zz = z.names_tem)
                              }
                            })
 
-        x.names <- c(x.names, unlist(lapply(list_temp, function(x) unlist(x[1]))))
-        y.names <- c(y.names, unlist(lapply(list_temp, function(x) unlist(x[2]))))
-        z.names <- c(z.names, unlist(lapply(list_temp, function(x) unlist(x[3]))))
+        x.names <- c(x.names, unlist(lapply(list_tem, function(x) unlist(x[1]))))
+        y.names <- c(y.names, unlist(lapply(list_tem, function(x) unlist(x[2]))))
+        z.names <- c(z.names, unlist(lapply(list_tem, function(x) unlist(x[3]))))
       }
     }
 
@@ -592,26 +591,26 @@ IMMAN <- function(ProteinLists, fileNames = NULL, Species_IDs,
     OPS <- data.frame(node1 = OPS[, 4], node2 = OPS[, 5], node3 = OPS[, 6])
 
     OPSLabel = c()
-    flag_temp <- TRUE
+    flag_tem <- TRUE
     if (nrow(OPS) > 10) {OPSLabel = c(OPSLabel,paste("OPS000", c(1 : 9), sep=""))
     } else {
       OPSLabel = c(OPSLabel,paste("OPS000", c(1 : nrow(OPS)), sep=""))
-      flag_temp <- FALSE
+      flag_tem <- FALSE
     }
     if (nrow(OPS) > 100) {OPSLabel = c(OPSLabel,paste("OPS00", c(10 : 99), sep=""))
     } else {
-      if (flag_temp) OPSLabel = c(OPSLabel,paste("OPS00", c(10 : nrow(OPS)), sep=""))
-      flag_temp <- FALSE
+      if (flag_tem) OPSLabel = c(OPSLabel,paste("OPS00", c(10 : nrow(OPS)), sep=""))
+      flag_tem <- FALSE
     }
     if (nrow(OPS) > 1000) {OPSLabel = c(OPSLabel,paste("OPS00", c(100 : 999), sep=""))
     } else {
-      if (flag_temp) OPSLabel = c(OPSLabel,paste("OPS00", c(100 : nrow(OPS)), sep=""))
-      flag_temp <- FALSE
+      if (flag_tem) OPSLabel = c(OPSLabel,paste("OPS00", c(100 : nrow(OPS)), sep=""))
+      flag_tem <- FALSE
     }
     if (nrow(OPS) > 10000) {OPSLabel = c(OPSLabel,paste("OPS00", c(1000 : 9999), sep=""))
     } else {
-      if (flag_temp) OPSLabel = c(OPSLabel,paste("OPS00", c(1000 : nrow(OPS)), sep=""))
-      flag_temp <- FALSE
+      if (flag_tem) OPSLabel = c(OPSLabel,paste("OPS00", c(1000 : nrow(OPS)), sep=""))
+      flag_tem <- FALSE
     }
 
     OPS <- cbind(OPS, OPSLabel = OPSLabel)
@@ -652,7 +651,7 @@ IMMAN <- function(ProteinLists, fileNames = NULL, Species_IDs,
 
     # i = 1
     for (i in 1 : (l - 1)) {
-      node_temp <- apply(OPS[c((i + 1) : l), ], 1, function(x){
+      node_tem <- apply(OPS[c((i + 1) : l), ], 1, function(x){
         a = c(as.character(OPS[i,1]) , as.character(x[1]))
         b = c(as.character(OPS[i,2]) , as.character(x[2]))
         c = c(as.character(OPS[i,3]) , as.character(x[3]))
@@ -684,9 +683,9 @@ IMMAN <- function(ProteinLists, fileNames = NULL, Species_IDs,
         }
       })
 
-      if (! is.null(node_temp)) {
-        node1 <- c(node1, unlist(node_temp)[seq(1, length(unlist(node_temp)), 2)])
-        node2 <- c(node2, unlist(node_temp)[seq(2, length(unlist(node_temp)), 2)])
+      if (! is.null(node_tem)) {
+        node1 <- c(node1, unlist(node_tem)[seq(1, length(unlist(node_tem)), 2)])
+        node2 <- c(node2, unlist(node_tem)[seq(2, length(unlist(node_tem)), 2)])
       }
     }
 
@@ -696,8 +695,8 @@ IMMAN <- function(ProteinLists, fileNames = NULL, Species_IDs,
     network_list <- list(Network1, Network2, Network3)
   }
   if (list_num == 2) {
-    x <- rep(names(temp_list[[1]]), unlist(lapply(temp_list[[1]], length)))
-    xperim = unlist(temp_list[[1]])
+    x <- rep(names(tem_list[[1]]), unlist(lapply(tem_list[[1]], length)))
+    xperim = unlist(tem_list[[1]])
 
     message("Detecting List1 in STRING")
     map1 = string_db_list[[1]]$map(data.frame(UNIPROT_AC = unique(x)) ,
@@ -724,26 +723,26 @@ IMMAN <- function(ProteinLists, fileNames = NULL, Species_IDs,
     OPS <- data.frame(node1 = OPS[, 3], node2 = OPS[, 4])
 
     OPSLabel = c()
-    flag_temp <- TRUE
+    flag_tem <- TRUE
     if (nrow(OPS) > 10) {OPSLabel = c(OPSLabel, paste("OPS000", c(1 : 9), sep=""))
     } else {
       OPSLabel = c(OPSLabel,paste("OPS000", c(1 : nrow(OPS)), sep=""))
-      flag_temp <- FALSE
+      flag_tem <- FALSE
     }
     if (nrow(OPS) > 100) {OPSLabel = c(OPSLabel, paste("OPS00", c(10 : 99), sep=""))
     } else {
-      if (flag_temp) OPSLabel = c(OPSLabel, paste("OPS00", c(10 : nrow(OPS)), sep=""))
-      flag_temp <- FALSE
+      if (flag_tem) OPSLabel = c(OPSLabel, paste("OPS00", c(10 : nrow(OPS)), sep=""))
+      flag_tem <- FALSE
     }
     if (nrow(OPS) > 1000) {OPSLabel = c(OPSLabel, paste("OPS00", c(100 : 999), sep=""))
     } else {
-      if (flag_temp) OPSLabel = c(OPSLabel,paste("OPS00", c(100 : nrow(OPS)), sep=""))
-      flag_temp <- FALSE
+      if (flag_tem) OPSLabel = c(OPSLabel,paste("OPS00", c(100 : nrow(OPS)), sep=""))
+      flag_tem <- FALSE
     }
     if (nrow(OPS) > 10000) {OPSLabel = c(OPSLabel,paste("OPS00", c(1000 : 9999), sep=""))
     } else {
-      if (flag_temp) OPSLabel = c(OPSLabel,paste("OPS00", c(1000 : nrow(OPS)), sep=""))
-      flag_temp <- FALSE
+      if (flag_tem) OPSLabel = c(OPSLabel,paste("OPS00", c(1000 : nrow(OPS)), sep=""))
+      flag_tem <- FALSE
     }
 
     OPS <- cbind(OPS, OPSLabel = OPSLabel)
@@ -776,7 +775,7 @@ IMMAN <- function(ProteinLists, fileNames = NULL, Species_IDs,
 
     # i = 1
     for (i in 1 : (l - 1)) {
-      node_temp <- apply(OPS[c((i + 1) : l), ], 1, function(x){
+      node_tem <- apply(OPS[c((i + 1) : l), ], 1, function(x){
         a = c(as.character(OPS[i,1]) , as.character(x[1]))
         b = c(as.character(OPS[i,2]) , as.character(x[2]))
 
@@ -802,9 +801,9 @@ IMMAN <- function(ProteinLists, fileNames = NULL, Species_IDs,
         }
       })
 
-      if (! is.null(node_temp)) {
-        node1 <- c(node1, unlist(node_temp)[seq(1, length(unlist(node_temp)), 2)])
-        node2 <- c(node2, unlist(node_temp)[seq(2, length(unlist(node_temp)), 2)])
+      if (! is.null(node_tem)) {
+        node1 <- c(node1, unlist(node_tem)[seq(1, length(unlist(node_tem)), 2)])
+        node2 <- c(node2, unlist(node_tem)[seq(2, length(unlist(node_tem)), 2)])
       }
     }
 
