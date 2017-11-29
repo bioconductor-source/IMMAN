@@ -46,11 +46,45 @@
 #' IPN : an igraph object representing the interlog protein network.
 #'
 #' @author Payman Nickchi, Abdollah Safari, Minoo Ashtiani, Mohieddin Jafari
+#' @examples
+#' data(H.sapiens)
+#' data(R.norvegicus)
+#'
+#' ProteinLists = list(as.character(H.sapiens$V1), as.character(R.norvegicus$V1))
+#'
+#' List1_Species_ID = 9606  # taxonomy ID List1 Homo sapiens
+#' List2_Species_ID = 10116 # taxonomy ID List2 Rat
+#'
+#' Species_IDs  = c(List1_Species_ID, List2_Species_ID)
+#'
+#'identityU = 30
+#'substitutionMatrix = "BLOSUM62"
+#'gapOpening = -8
+#'gapExtension = -8
+#'NetworkShrinkage = FALSE
+#'coverage = 1
+#'BestHit = TRUE
+#'score_threshold = 400
+#'STRINGversion="10"
+#'
+#'# Run the IMMAN function for the parameters
+#' output = IMMAN(ProteinLists, fileNames=NULL, Species_IDs,
+#'               identityU, substitutionMatrix,
+#'               gapOpening, gapExtension, BestHit,
+#'               coverage, NetworkShrinkage,
+#'               score_threshold, STRINGversion,
+#'               InputDirectory = getwd())
+#'
+#'output$IPNEdges
+#'output$IPNNodes
+#'output$Networks
+#'output$Networks[[1]]
+#'output$maps
+#'output$maps[[2]]
 #'
 #' @export
 #' @importFrom Biostrings pairwiseAlignment
 #' @importFrom Biostrings pid
-#' @importFrom seqinr read.fasta
 #' @importFrom igraph graph_from_data_frame
 #' @importFrom graphics plot
 #' @importFrom STRINGdb STRINGdb
@@ -557,26 +591,26 @@ IMMAN <- function(ProteinLists, fileNames = NULL, Species_IDs,
     OPS <- data.frame(node1 = OPS[, 4], node2 = OPS[, 5], node3 = OPS[, 6])
 
     OPSLabel = c()
-    flag_temp <- T
+    flag_temp <- TRUE
     if (nrow(OPS) > 10) {OPSLabel = c(OPSLabel,paste("OPS000", c(1 : 9), sep=""))
     } else {
       OPSLabel = c(OPSLabel,paste("OPS000", c(1 : nrow(OPS)), sep=""))
-      flag_temp <- F
+      flag_temp <- FALSE
     }
     if (nrow(OPS) > 100) {OPSLabel = c(OPSLabel,paste("OPS00", c(10 : 99), sep=""))
     } else {
       if (flag_temp) OPSLabel = c(OPSLabel,paste("OPS00", c(10 : nrow(OPS)), sep=""))
-      flag_temp <- F
+      flag_temp <- FALSE
     }
     if (nrow(OPS) > 1000) {OPSLabel = c(OPSLabel,paste("OPS00", c(100 : 999), sep=""))
     } else {
       if (flag_temp) OPSLabel = c(OPSLabel,paste("OPS00", c(100 : nrow(OPS)), sep=""))
-      flag_temp <- F
+      flag_temp <- FALSE
     }
     if (nrow(OPS) > 10000) {OPSLabel = c(OPSLabel,paste("OPS00", c(1000 : 9999), sep=""))
     } else {
       if (flag_temp) OPSLabel = c(OPSLabel,paste("OPS00", c(1000 : nrow(OPS)), sep=""))
-      flag_temp <- F
+      flag_temp <- FALSE
     }
 
     OPS <- cbind(OPS, OPSLabel = OPSLabel)
@@ -689,26 +723,26 @@ IMMAN <- function(ProteinLists, fileNames = NULL, Species_IDs,
     OPS <- data.frame(node1 = OPS[, 3], node2 = OPS[, 4])
 
     OPSLabel = c()
-    flag_temp <- T
+    flag_temp <- TRUE
     if (nrow(OPS) > 10) {OPSLabel = c(OPSLabel, paste("OPS000", c(1 : 9), sep=""))
     } else {
       OPSLabel = c(OPSLabel,paste("OPS000", c(1 : nrow(OPS)), sep=""))
-      flag_temp <- F
+      flag_temp <- FALSE
     }
     if (nrow(OPS) > 100) {OPSLabel = c(OPSLabel, paste("OPS00", c(10 : 99), sep=""))
     } else {
       if (flag_temp) OPSLabel = c(OPSLabel, paste("OPS00", c(10 : nrow(OPS)), sep=""))
-      flag_temp <- F
+      flag_temp <- FALSE
     }
     if (nrow(OPS) > 1000) {OPSLabel = c(OPSLabel, paste("OPS00", c(100 : 999), sep=""))
     } else {
       if (flag_temp) OPSLabel = c(OPSLabel,paste("OPS00", c(100 : nrow(OPS)), sep=""))
-      flag_temp <- F
+      flag_temp <- FALSE
     }
     if (nrow(OPS) > 10000) {OPSLabel = c(OPSLabel,paste("OPS00", c(1000 : 9999), sep=""))
     } else {
       if (flag_temp) OPSLabel = c(OPSLabel,paste("OPS00", c(1000 : nrow(OPS)), sep=""))
-      flag_temp <- F
+      flag_temp <- FALSE
     }
 
     OPS <- cbind(OPS, OPSLabel = OPSLabel)
