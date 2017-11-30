@@ -163,7 +163,7 @@ IMMAN <- function(ProteinLists, fileNames = NULL, Species_IDs,
     ProteinLists<-list()
     for (i in 1:length(fileNames)) {
       files[[i]] <- read.csv(fileNames[i],
-                             header = F)
+                             header = FALSE)
       ProteinLists[[i]]<-as.character(as.data.frame(files[[i]])$V1)
     }
   }
@@ -325,7 +325,7 @@ IMMAN <- function(ProteinLists, fileNames = NULL, Species_IDs,
       for (j in 1 : length(y.inters2[[i]])) {
         z_tem <- mat.xyz2[(mat.xyz2[,1] == x.inters2[i]) & (mat.xyz2[,2] == y.inters2[[i]][j]), 3]
         w_tem <- mat.xyw2[(mat.xyw2[,1] == x.inters2[i]) & (mat.xyw2[,2] == y.inters2[[i]][j]), 3]
-        res6_tem.sub <- matrix(res_list[[6]][z_tem,w_tem], ncol = length(w_tem), nrow = length(z_tem), T)
+        res6_tem.sub <- matrix(res_list[[6]][z_tem,w_tem], ncol = length(w_tem), nrow = length(z_tem), TRUE)
         sum_tem <- sum(res6_tem.sub)
         if (sum_tem > 0) {
           tem.mat <- matrix(NA, nrow = 1, ncol = 2)
