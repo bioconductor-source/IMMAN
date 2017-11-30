@@ -23,13 +23,12 @@ library(IMMAN)
 
 ```
 
-For illustration, we will read three datasets from different species which can be accessed via:
+For illustration, we will read two datasets from different species which can be accessed via:
 
 ```{r}
 
 data(H.sapiens)
 data(R.norvegicus)
-data(Celegance)
 
 ```
 
@@ -37,14 +36,12 @@ Then, we have to make a list of dataset species and set their taxanomy IDs.
 
 ```{r}
 
-ProteinLists = list(as.character(H.sapiens$V1), as.character(R.norvegicus$V1),
- as.character(Celegance$V1))
+ProteinLists = list(as.character(H.sapiens$V1), as.character(R.norvegicus$V1))
 
 List1_Species_ID = 9606  # taxonomy ID List1 Homo sapiens
 List2_Species_ID = 10116 # taxonomy ID List2 Rat
-List3_Species_ID = 6239  # taxonomy ID List3 Celegans
 
-Species_IDs  = c(List1_Species_ID, List2_Species_ID, List3_Species_ID)
+Species_IDs  = c(List1_Species_ID, List2_Species_ID)
 
 ```
 
