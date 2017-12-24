@@ -93,11 +93,11 @@
 #' @importFrom seqinr read.fasta
 
 IMMAN <- function(ProteinLists, fileNames = NULL, Species_IDs,
-                 identityU, substitutionMatrix,
-                 gapOpening, gapExtension, BestHit,
-                 coverage, NetworkShrinkage,
-                 score_threshold, STRINGversion,
-                 InputDirectory = getwd()){
+                  identityU, substitutionMatrix,
+                  gapOpening, gapExtension, BestHit,
+                  coverage, NetworkShrinkage,
+                  score_threshold, STRINGversion,
+                  InputDirectory = getwd()){
 
   align <- function(pattern, subject, type){
 
@@ -123,7 +123,7 @@ IMMAN <- function(ProteinLists, fileNames = NULL, Species_IDs,
     x.names <- character(0)
     y.names <- character(0)
     z.names <- character(0)
-    for (i in 1 : nrow(res1_tem)) {
+    for (i in seq_len(nrow(res1_tem))) {
 
       if (sum(res1_tem[i, ]) == 1) {
         vec_tem <- res2_tem[i, ] * res3_tem[(res1_tem[i,] == 1), ]
@@ -136,17 +136,17 @@ IMMAN <- function(ProteinLists, fileNames = NULL, Species_IDs,
 
       if (sum(res1_tem[i, ]) > 1) {
         list_tem <- apply(cbind(res3_tem[(res1_tem[i,] == 1), ], which(res1_tem[i,] == 1)), 1,
-                           function(x) {
-                             vec_tem <- res2_tem[i, ] * x[-length(x)]
-                             if (sum(vec_tem) >= 1) {
-                               x.names_tem <- rep(rownames(res1_tem)[i], sum(vec_tem))
-                               y.names_tem <- rep(rownames(res3_tem)[x[length(x)]], sum(vec_tem))
-                               z.names_tem <- colnames(res3_tem)[vec_tem == 1]
-                               list(xx = x.names_tem,
-                                    yy = y.names_tem,
-                                    zz = z.names_tem)
-                             }
-                           })
+                          function(x) {
+                            vec_tem <- res2_tem[i, ] * x[-length(x)]
+                            if (sum(vec_tem) >= 1) {
+                              x.names_tem <- rep(rownames(res1_tem)[i], sum(vec_tem))
+                              y.names_tem <- rep(rownames(res3_tem)[x[length(x)]], sum(vec_tem))
+                              z.names_tem <- colnames(res3_tem)[vec_tem == 1]
+                              list(xx = x.names_tem,
+                                   yy = y.names_tem,
+                                   zz = z.names_tem)
+                            }
+                          })
 
         x.names <- c(x.names, unlist(lapply(list , function(x) unlist(x[1]))))
         y.names <- c(y.names, unlist(lapply(list_tem, function(x) unlist(x[2]))))
@@ -158,37 +158,37 @@ IMMAN <- function(ProteinLists, fileNames = NULL, Species_IDs,
   }
 
   if(is.null(ProteinLists)){
-  if(is.element(FALSE,file.exists(fileNames)) %in% FALSE) {
-    files<-list()
-    ProteinLists<-list()
-    for (i in 1:length(fileNames)) {
-      files[[i]] <- read.csv(fileNames[i],
-                             header = FALSE)
-      ProteinLists[[i]]<-as.character(as.data.frame(files[[i]])$V1)
+    if(is.element(FALSE,file.exists(fileNames)) %in% FALSE) {
+      files<-list()
+      ProteinLists<-list()
+      for (i in 1:length(fileNames)) {
+        files[[i]] <- read.csv(fileNames[i],
+                               header = FALSE)
+        ProteinLists[[i]]<-as.character(as.data.frame(files[[i]])$V1)
+      }
     }
+    else stop("The file name does not exist in the diretory path")
   }
-  else stop("Error: The file name does not exist in the diretory path")
-}
 
   Species_IDs<-sapply(Species_IDs,list)
 
   list_num <- length(ProteinLists)
 
-  for (i in 1 : list_num) {
+  for (i in seq_len( list_num)) {
     if( is.character(ProteinLists[[i]]) == "FALSE" ) {
-      stop(paste("Error: ProteinLists", i," should be a vector type of character", sep = ""))
+      stop(paste("ProteinLists", i," should be a vector type of character", sep = ""))
     }
   }
 
   if( !(coverage %in% 1:4) ){
-    stop("Error: Coverage should be between 1 up to 4")
+    stop("Coverage should be between 1 up to 4")
   }
 
 
   ## Print status
   message("Step 1/4:Downloading amino acid sequences...")
   PS_list <- list()
-  for (i in 1 : list_num) {
+  for (i in seq_len( list_num)){
     message(paste("Downloading amino acid sequences of List", i, sep = ""))
     PS_list <- c(PS_list, list(apply(data.frame(Protein = ProteinLists[[i]]), 1,
                                      function (x) {
@@ -207,7 +207,7 @@ IMMAN <- function(ProteinLists, fileNames = NULL, Species_IDs,
 
   tem_list <- list()
   res_list <- list()
-  for (i in 1 : (list_num - 1)) {
+  for (i in seq_len(list_num - 1)) {
     for (j in (i + 1) : list_num) {
       message(paste("Align List", i," with List", j, sep = ""))
       unbinres = t(apply(as.matrix(PS_list[[i]], ncol = 1), 1, function (x) {
@@ -234,25 +234,25 @@ IMMAN <- function(ProteinLists, fileNames = NULL, Species_IDs,
   # res_list  <- res_list_backup
 
   if (BestHit == TRUE) {
-    for (i in 1 : pair_num) {
+    for (i in seq_len( pair_num)) {
       tem_list[[i]] <- apply(tem_list[[i]], 1, function(x) {
         ind_tem <- which(x == max(x))
         if (length(ind_tem) > 1) colnames(tem_list[[i]])[ind_tem][apply(tem_list[[i]][, ind_tem], 2, max) == x[ind_tem]]
         else colnames(tem_list[[i]])[ind_tem][max(tem_list[[i]][, ind_tem]) == x[ind_tem]]
       })
 
-      for (j in 1 : length(tem_list[[i]])) {
+      for (j in seq_len( length(tem_list[[i]]))) {
         if (length(unlist(tem_list[[i]][j])) > 0) res_list[[i]][names(tem_list[[i]][j]), unlist(tem_list[[i]][j])] <- 1
       }
     }
   }
   if( BestHit == FALSE){
-    for (i in 1 : pair_num) {
+    for (i in seq_len( pair_num)) {
       tem_list[[i]] <- apply(tem[[i]], 1, function(x) {
         colnames(tem[[i]])[x != 0]
       })
 
-      for (j in 1 : length(tem_list[[i]])) {
+      for (j in seq_len( length(tem_list[[i]]))) {
         if (length(unlist(tem_list[[i]][j])) > 0) res_list[[i]][names(tem_list[[i]][j]), unlist(tem_list[[i]][j])] <- 1
       }
     }
@@ -262,7 +262,7 @@ IMMAN <- function(ProteinLists, fileNames = NULL, Species_IDs,
 
   string_db_list <- list()
   map_list <- list()
-  for (i in 1 : list_num) {
+  for (i in seq_len( list_num)) {
     string_db_list <- c(string_db_list, list(STRINGdb$new(version = STRINGversion,
                                                           species= Species_IDs[[i]],
                                                           score_threshold = score_threshold,
@@ -308,7 +308,7 @@ IMMAN <- function(ProteinLists, fileNames = NULL, Species_IDs,
 
     mat.xyz2 <- matrix(NA, ncol = 3, nrow = 1)
     mat.xyw2 <- matrix(NA, ncol = 3, nrow = 1)
-    for (i in 1 : length(x.inters1)) {
+    for (i in seq_len( length(x.inters1))) {
       mat.xyz2 <- rbind(mat.xyz2, mat.xyz1[mat.xyz1[ , 2] %in% unlist(y.inters1[i]), ])
       mat.xyw2 <- rbind(mat.xyw2, mat.xyw1[(mat.xyw1[, 1] == x.inters1[i]) & (mat.xyw1[ , 2] %in% unlist(y.inters1[i])), ])
     }
@@ -321,17 +321,17 @@ IMMAN <- function(ProteinLists, fileNames = NULL, Species_IDs,
 
     # Final lists
     mat.xyzw <- matrix(NA, nrow = 1, ncol = 4)
-    for (i in 1 : length(y.inters2)) {
-      for (j in 1 : length(y.inters2[[i]])) {
+    for (i in seq_len(length(y.inters2))) {
+      for (j in seq_len( length(y.inters2[[i]]))) {
         z_tem <- mat.xyz2[(mat.xyz2[,1] == x.inters2[i]) & (mat.xyz2[,2] == y.inters2[[i]][j]), 3]
         w_tem <- mat.xyw2[(mat.xyw2[,1] == x.inters2[i]) & (mat.xyw2[,2] == y.inters2[[i]][j]), 3]
         res6_tem.sub <- matrix(res_list[[6]][z_tem,w_tem], ncol = length(w_tem), nrow = length(z_tem), TRUE)
         sum_tem <- sum(res6_tem.sub)
         if (sum_tem > 0) {
           tem.mat <- matrix(NA, nrow = 1, ncol = 2)
-          for (k in 1 : length(z_tem)) {
+          for (k in seq_len(length(z_tem))) {
             tem.mat <- rbind(tem.mat, t(rbind(rep(z_tem[k], sum(res6_tem.sub[k,])),
-                                                w_tem[res6_tem.sub[k,] == 1])))
+                                              w_tem[res6_tem.sub[k,] == 1])))
           }
           tem.mat <- matrix(tem.mat[-1, ], ncol = 2, nrow = nrow(tem.mat) - 1)
           mat.xyzw <- rbind(mat.xyzw,
@@ -349,7 +349,7 @@ IMMAN <- function(ProteinLists, fileNames = NULL, Species_IDs,
                                     "UNIPROT_AC" , removeUnmappedRows = TRUE)
     if( nrow(map1) == 0 ) {
       print(ProteinLists[[1]])
-      stop("Error: none of the proteins in list1 mapped to STRING ID")
+      stop("None of the proteins in list1 mapped to STRING ID")
     }
 
     message("Detecting List2 in STRING")
@@ -357,7 +357,7 @@ IMMAN <- function(ProteinLists, fileNames = NULL, Species_IDs,
                                    "UNIPROT_AC" , removeUnmappedRows = TRUE)
     if( nrow(map2) == 0 ) {
       print(ProteinLists[[2]])
-      stop("Error: none of the proteins in list2 mapped to STRING ID")
+      stop("None of the proteins in list2 mapped to STRING ID")
     }
 
     message("Detecting List3 in STRING")
@@ -365,7 +365,7 @@ IMMAN <- function(ProteinLists, fileNames = NULL, Species_IDs,
                                     "UNIPROT_AC" , removeUnmappedRows = TRUE)
     if( nrow(map3) == 0 ) {
       print(ProteinLists[[3]])
-      stop("Error: none of the proteins in list3 mapped to STRING ID")
+      stop("None of the proteins in list3 mapped to STRING ID")
     }
 
     message("Detecting List4 in STRING")
@@ -373,7 +373,7 @@ IMMAN <- function(ProteinLists, fileNames = NULL, Species_IDs,
                                     "UNIPROT_AC" , removeUnmappedRows = TRUE)
     if( nrow(map4) == 0 ) {
       print(ProteinLists[[4]])
-      stop("Error: none of the proteins in list4 mapped to STRING ID")
+      stop("None of the proteins in list4 mapped to STRING ID")
     }
 
     OPS = data.frame(node1 = mat.xyzw[, 1], node2 = mat.xyzw[, 2], node3 = mat.xyzw[, 3], node4 = mat.xyzw[, 4])
@@ -421,7 +421,7 @@ IMMAN <- function(ProteinLists, fileNames = NULL, Species_IDs,
                           to = string_db_list[[1]]$get_interactions(OPS$node1)$to)
     if(nrow(Network1) == 0){
       print(ProteinLists[[1]])
-      stop("Error: No interaction was detected for ProteinLists1")
+      stop("No interaction was detected for ProteinLists1")
     }
 
     message("Retrieving List2")
@@ -429,7 +429,7 @@ IMMAN <- function(ProteinLists, fileNames = NULL, Species_IDs,
                           to = string_db_list[[2]]$get_interactions(OPS$node2)$to)
     if(nrow(Network2) == 0){
       print(ProteinLists[[2]])
-      stop("Error: No interaction was detected for ProteinLists2")
+      stop("No interaction was detected for ProteinLists2")
     }
 
     message("Retrieving List3")
@@ -437,7 +437,7 @@ IMMAN <- function(ProteinLists, fileNames = NULL, Species_IDs,
                           to = string_db_list[[3]]$get_interactions(OPS$node3)$to)
     if(nrow(Network3) == 0){
       print(ProteinLists[[3]])
-      stop("Error: No interaction was detected for ProteinLists3")
+      stop("No interaction was detected for ProteinLists3")
     }
 
     message("Retrieving List4")
@@ -445,7 +445,7 @@ IMMAN <- function(ProteinLists, fileNames = NULL, Species_IDs,
                           to = string_db_list[[4]]$get_interactions(OPS$node4)$to)
     if(nrow(Network4) == 0){
       print(ProteinLists[[4]])
-      stop("Error: No interaction was detected for ProteinLists4")
+      stop("No interaction was detected for ProteinLists4")
     }
 
     message("Producing IPN...")
@@ -454,7 +454,7 @@ IMMAN <- function(ProteinLists, fileNames = NULL, Species_IDs,
     node2 = c()
     l = nrow(OPS)
     # i = 1
-    for (i in 1 : (l - 1)) {
+    for (i in seq_len( (l - 1))) {
       node_tem <- apply(OPS[c((i + 1) : l), ], 1, function(x){
         a = c(as.character(OPS[i,1]) , as.character(x[1]))
         b = c(as.character(OPS[i,2]) , as.character(x[2]))
@@ -518,7 +518,7 @@ IMMAN <- function(ProteinLists, fileNames = NULL, Species_IDs,
     x.names <- character(0)
     y.names <- character(0)
     z.names <- character(0)
-    for (i in 1 : nrow(res_list[[1]])) {
+    for (i in seq_len( nrow(res_list[[1]]))) {
 
       if (sum(res_list[[1]][i, ]) == 1) {
         vec_tem <- res_list[[2]][i, ] * res_list[[3]][(res_list[[1]][i,] == 1), ]
@@ -531,17 +531,17 @@ IMMAN <- function(ProteinLists, fileNames = NULL, Species_IDs,
 
       if (sum(res_list[[1]][i, ]) > 1) {
         list_tem <- apply(cbind(res_list[[3]][(res_list[[1]][i,] == 1), ], which(res_list[[1]][i,] == 1)), 1,
-                           function(x) {
-                             vec_tem <- res_list[[2]][i, ] * x[-length(x)]
-                             if (sum(vec_tem) >= 1) {
-                               x.names_tem <- rep(rownames(res_list[[1]])[i], sum(vec_tem))
-                               y.names_tem <- rep(rownames(res_list[[3]])[x[length(x)]], sum(vec_tem))
-                               z.names_tem <- colnames(res_list[[3]])[vec_tem == 1]
-                               list(xx = x.names_tem,
-                                    yy = y.names_tem,
-                                    zz = z.names_tem)
-                             }
-                           })
+                          function(x) {
+                            vec_tem <- res_list[[2]][i, ] * x[-length(x)]
+                            if (sum(vec_tem) >= 1) {
+                              x.names_tem <- rep(rownames(res_list[[1]])[i], sum(vec_tem))
+                              y.names_tem <- rep(rownames(res_list[[3]])[x[length(x)]], sum(vec_tem))
+                              z.names_tem <- colnames(res_list[[3]])[vec_tem == 1]
+                              list(xx = x.names_tem,
+                                   yy = y.names_tem,
+                                   zz = z.names_tem)
+                            }
+                          })
 
         x.names <- c(x.names, unlist(lapply(list_tem, function(x) unlist(x[1]))))
         y.names <- c(y.names, unlist(lapply(list_tem, function(x) unlist(x[2]))))
@@ -557,7 +557,7 @@ IMMAN <- function(ProteinLists, fileNames = NULL, Species_IDs,
 
 
     if( nrow(map1) == 0 ) {
-      stop("Error: none of the proteins in list1 mapped to STRING ID")
+      stop("None of the proteins in list1 mapped to STRING ID")
     }
 
 
@@ -567,7 +567,7 @@ IMMAN <- function(ProteinLists, fileNames = NULL, Species_IDs,
                                     "UNIPROT_AC" , removeUnmappedRows = TRUE)
 
     if( nrow(map2) == 0 ) {
-      stop("Error: none of the proteins in list2 mapped to STRING ID")
+      stop("None of the proteins in list2 mapped to STRING ID")
     }
 
 
@@ -577,7 +577,7 @@ IMMAN <- function(ProteinLists, fileNames = NULL, Species_IDs,
                                    "UNIPROT_AC" , removeUnmappedRows = TRUE)
 
     if( nrow(map3) == 0 ) {
-      stop("Error: none of the proteins in list3 mapped to STRING ID")
+      stop("None of the proteins in list3 mapped to STRING ID")
     }
 
     OPS = data.frame(node1 = x.names, node2 = y.names, node3 = z.names)
@@ -623,7 +623,7 @@ IMMAN <- function(ProteinLists, fileNames = NULL, Species_IDs,
                           to = string_db_list[[1]]$get_interactions(OPS$node1)$to)
     if(nrow(Network1) == 0){
       print(ProteinLists[[1]])
-      stop("Error: No interaction was detected for ProteinLists1")
+      stop("No interaction was detected for ProteinLists1")
     }
 
     message("Retrieving List2")
@@ -631,7 +631,7 @@ IMMAN <- function(ProteinLists, fileNames = NULL, Species_IDs,
                           to = string_db_list[[2]]$get_interactions(OPS$node2)$to)
     if(nrow(Network2) == 0){
       print(ProteinLists[[2]])
-      stop("Error: No interaction was detected for ProteinLists2")
+      stop("No interaction was detected for ProteinLists2")
     }
 
     message("Retrieving List3")
@@ -639,7 +639,7 @@ IMMAN <- function(ProteinLists, fileNames = NULL, Species_IDs,
                           to = string_db_list[[3]]$get_interactions(OPS$node3)$to)
     if(nrow(Network3) == 0){
       print(ProteinLists[[3]])
-      stop("Error: No interaction was detected for ProteinLists3")
+      stop("No interaction was detected for ProteinLists3")
     }
 
 
@@ -650,7 +650,7 @@ IMMAN <- function(ProteinLists, fileNames = NULL, Species_IDs,
     l = nrow(OPS)
 
     # i = 1
-    for (i in 1 : (l - 1)) {
+    for (i in seq_len(l - 1)) {
       node_tem <- apply(OPS[c((i + 1) : l), ], 1, function(x){
         a = c(as.character(OPS[i,1]) , as.character(x[1]))
         b = c(as.character(OPS[i,2]) , as.character(x[2]))
@@ -703,7 +703,7 @@ IMMAN <- function(ProteinLists, fileNames = NULL, Species_IDs,
                                    "UNIPROT_AC" , removeUnmappedRows = TRUE)
 
     if ( nrow(map1) == 0 ) {
-      stop("Error: none of the proteins in list1 mapped to STRING ID")
+      stop("None of the proteins in list1 mapped to STRING ID")
     }
 
     message("Detecting List2 in STRING")
@@ -711,7 +711,7 @@ IMMAN <- function(ProteinLists, fileNames = NULL, Species_IDs,
                                     "UNIPROT_AC" , removeUnmappedRows = TRUE)
 
     if (nrow(map2) == 0) {
-      stop("Error: none of the proteins in list2 mapped to STRING ID")
+      stop("None of the proteins in list2 mapped to STRING ID")
     }
 
     OPS = data.frame(node1 = x, node2 = xperim)
@@ -755,7 +755,7 @@ IMMAN <- function(ProteinLists, fileNames = NULL, Species_IDs,
 
     if (nrow(Network1) == 0) {
       print(ProteinLists[[1]])
-      stop("Error: No STRING network was detected for ProteinLists1")
+      stop("No STRING network was detected for ProteinLists1")
     }
 
     message("Retrieving List2")
@@ -764,7 +764,7 @@ IMMAN <- function(ProteinLists, fileNames = NULL, Species_IDs,
 
     if (nrow(Network2) == 0) {
       print(ProteinLists[[2]])
-      stop("Error: No STRING network was detected for ProteinLists2")
+      stop("No STRING network was detected for ProteinLists2")
     }
 
     message("Producing IPN...")
@@ -774,7 +774,7 @@ IMMAN <- function(ProteinLists, fileNames = NULL, Species_IDs,
     l = nrow(OPS)
 
     # i = 1
-    for (i in 1 : (l - 1)) {
+    for (i in seq_len((l - 1))) {
       node_tem <- apply(OPS[c((i + 1) : l), ], 1, function(x){
         a = c(as.character(OPS[i,1]) , as.character(x[1]))
         b = c(as.character(OPS[i,2]) , as.character(x[2]))
