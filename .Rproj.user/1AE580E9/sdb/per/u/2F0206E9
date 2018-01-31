@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "library(igraph)\nlibrary(Biostrings)\nlibrary(seqinr)\nlibrary(STRINGdb)\n\ndata(H.sapiens)\ndata(R.norvegicus)\n\nProteinLists = list(as.character(H.sapiens$V1), as.character(R.norvegicus$V1))\n\nList1_Species_ID = 9606  # taxonomy ID List1 Homo sapiens\nList2_Species_ID = 10116 # taxonomy ID List2 Rat\n\nSpecies_IDs  = c(List1_Species_ID, List2_Species_ID)\n\n# Set the parameters to run the analysis.\n# Here is a description of parameters in IMMAN. If you need more\n# information you can refer to the paper.\n# identityU: Cut off value for selecting proteins whose alignment score\n# is greater or equal than identityU\n# substitutionMatrix: Which scoring matrix to be used for alignment\n# setting gapOpening and gapExtension for alignment purposes\n# For NetworkShrinkage, coverage, and BestHit refer to paper\n# score_threshold:\n# STRINGversion: Indicated which version of STRING database should\n# program search in for the score of PPIs.\n\nidentityU = 30\nsubstitutionMatrix = \"BLOSUM62\"\ngapOpening = -8\ngapExtension = -8\nNetworkShrinkage = FALSE\ncoverage = 1\nBestHit = TRUE\nscore_threshold = 400\nSTRINGversion=\"10\"\n\n# Run the IMMAN function for the parameters\n\noutput = IMMAN(ProteinLists, fileNames=NULL, Species_IDs,\n               identityU, substitutionMatrix,\n               gapOpening, gapExtension, BestHit,\n               coverage, NetworkShrinkage,\n               score_threshold, STRINGversion,\n               InputDirectory = getwd())\n\noutput$IPNEdges\noutput$IPNNodes\noutput$Networks\noutput$Networks[[1]]\noutput$maps\noutput$maps[[2]]\n\n",
+    "created" : 1513262641114.000,
+    "dirty" : true,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "3902948413",
+    "id" : "2F0206E9",
+    "lastKnownWriteTime" : 7596484193276666483,
+    "last_content_update" : 1513262643200,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "tempName" : "Untitled5"
+    },
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
