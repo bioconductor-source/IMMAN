@@ -1,0 +1,84 @@
+"0","output = IMMAN(ProteinLists, fileNames=NULL, Species_IDs,
+              identityU, substitutionMatrix,
+              gapOpening, gapExtension, BestHit,
+              coverage, NetworkShrinkage,
+              score_threshold, STRINGversion,
+              InputDirectory = getwd())
+"
+"2","Step 1/4:Downloading amino acid sequences...
+"
+"2","Downloading amino acid sequences of List1
+"
+"2","Downloading amino acid sequences of List2
+"
+"2","Downloading amino acid sequences of List3
+"
+"2","Downloading amino acid sequences of List4
+"
+"2","Step 2/4: Alignment...
+"
+"2","Align List1 with List2
+"
+"2","Align List1 with List3
+"
+"2","Align List1 with List4
+"
+"2","Align List2 with List3
+"
+"2","Align List2 with List4
+"
+"2","Align List3 with List4
+"
+"2","Step 3/4: Detection in STRING...
+"
+"2","Detecting List1 in STRING
+"
+"2","Detecting List2 in STRING
+"
+"2","Detecting List3 in STRING
+"
+"2","trying URL 'http://string.uzh.ch/permanent/string/10/protein_aliases/6239__protein_aliases_tf.tsv.gz'
+"
+"2","Content type 'application/x-gzip'"
+"2"," length 3866324 bytes (3.7 MB)
+"
+"2","downloaded 3.7 MB
+
+"
+"2","trying URL 'http://string.uzh.ch/permanent/string/10/proteins/6239__proteins.tsv.gz'
+"
+"2","Content type 'application/x-gzip'"
+"2"," length 792419 bytes (773 KB)
+"
+"2","downloaded 773 KB
+
+"
+"2","Detecting List4 in STRING
+"
+"2","trying URL 'http://string.uzh.ch/permanent/string/10/protein_aliases/7227__protein_aliases_tf.tsv.gz'
+"
+"2","Content type 'application/x-gzip'"
+"2"," length 4062637 bytes (3.9 MB)
+"
+"2","downloaded 3.9 MB
+
+"
+"2","trying URL 'http://string.uzh.ch/permanent/string/10/proteins/7227__proteins.tsv.gz'
+"
+"2","Content type 'application/x-gzip'"
+"2"," length 648541 bytes (633 KB)
+"
+"2","downloaded 633 KB
+
+"
+"2","Step 4/4: Retrieving String Network...
+"
+"2","Retrieving List1
+"
+"2","trying URL 'http://string.uzh.ch/permanent/string/10/protein_links/9606__protein_links.tsv.gz'
+"
+"2","Content type 'application/x-gzip'"
+"2"," length 36637376 bytes (34.9 MB)
+"
+"2","
+"
