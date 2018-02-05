@@ -1,0 +1,43 @@
+for (i in seq_len( (l - 1))) {
+  node_tem <- apply(OPS[c((i + 1) : l), ], 1, function(x){
+    a = c(as.character(OPS[i,1]) , as.character(x[1]))
+    b = c(as.character(OPS[i,2]) , as.character(x[2]))
+    c = c(as.character(OPS[i,3]) , as.character(x[3]))
+    d = c(as.character(OPS[i,4]) , as.character(x[4]))
+    
+    cond1 = ifelse(nrow(Network1[((Network1$from == a[1]) & (Network1$to) == a[2]), ]) != 0 |
+                     nrow(Network1[((Network1$from == a[2]) & (Network1$to) == a[1]), ]) != 0, TRUE, FALSE)
+    cond2 = ifelse(nrow(Network2[((Network2$from == b[1]) & (Network2$to) == b[2]), ]) != 0 |
+                     nrow(Network2[((Network2$from == b[2]) & (Network2$to) == b[1]), ]) != 0, TRUE, FALSE)
+    cond3 = ifelse(nrow(Network3[((Network3$from == c[1]) & (Network3$to) == c[2]), ]) != 0 |
+                     nrow(Network3[((Network3$from == c[2]) & (Network3$to) == c[1]), ]) != 0, TRUE, FALSE)
+    cond4 = ifelse(nrow(Network4[((Network4$from == d[1]) & (Network4$to) == d[2]), ]) != 0 |
+                     nrow(Network4[((Network4$from == d[2]) & (Network4$to) == d[1]), ]) != 0, TRUE, FALSE)
+    
+    if (((cond1 + cond2 + cond3 + cond4 == 1) & (coverage == 1)) |
+        ((cond1 + cond2 + cond3 + cond4 == 2) & (coverage == 2)) |
+        ((cond1 + cond2 + cond3 + cond4 == 3) & (coverage == 3)) |
+        ((cond1 + cond2 + cond3 + cond4 == 4) & (coverage == 4))) {
+      return(c(as.character(OPS[i, 5]), as.character(x[5])))
+    }
+    
+    if ((NetworkShrinkage == FALSE)) {
+      t1 = as.character(OPS[i, 1]) == as.character(x[1])
+      t2 = as.character(OPS[i, 2]) == as.character(x[2])
+      t3 = as.character(OPS[i, 3]) == as.character(x[3])
+      t4 = as.character(OPS[i, 4]) == as.character(x[4])
+      
+      mycond = cond1 + cond2 + cond3 + cond4
+      TT = t1 + t2 + t3 + t4
+      if (TT + mycond >= coverage){
+        return(c(as.character(OPS[i, 5]), as.character(x[5])))
+      }
+      
+    }
+  })
+  
+  if (! is.null(node_tem)) {
+    node1 <- c(node1, unlist(node_tem)[seq(1, length(unlist(node_tem)), 2)])
+    node2 <- c(node2, unlist(node_tem)[seq(2, length(unlist(node_tem)), 2)])
+  }
+}
