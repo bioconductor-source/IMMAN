@@ -1,0 +1,21 @@
+install.packages("igraph")
+install.packages("utils")
+install.packages("seqinr")
+## try http:// if https:// URLs are not supported
+source("https://bioconductor.org/biocLite.R")
+biocLite("Biostrings")
+## try http:// if https:// URLs are not supported
+source("https://bioconductor.org/biocLite.R")
+biocLite("STRINGdb")
+
+install.packages("devtools")
+install.packages("roxygen2")
+install.packages("testthat")
+
+library(devtools)
+library(roxygen2)
+library(igraph)
+library(utils)
+library(seqinr)
+library(Biostrings)
+library(STRINGdb)
