@@ -3,7 +3,7 @@ data("H.sapiens")
 data("R.norvegicus")
 
 test_that("IMMAN reconstruct the interlog protein network", {
-  IMMAN(ProteinLists=list(as.character(H.sapiens$V1), as.character(R.norvegicus$V1)), fileNames=NULL, Species_IDs,
+  IMMAN(ProteinLists=list(as.character(H.sapiens$V1), as.character(R.norvegicus$V1)), fileNames=NULL, Species_IDs  = c(9606, 10116),
         identityU = 30,
         substitutionMatrix = "BLOSUM62",
         gapOpening = -8,
