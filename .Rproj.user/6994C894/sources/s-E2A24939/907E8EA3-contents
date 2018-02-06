@@ -1,2 +1,0 @@
-node1 <- c(node1, unlist(node_tem)[seq(1, length(unlist(node_tem)), 2)])
-node2 <- c(node2, unlist(node_tem)[seq(2, length(unlist(node_tem)), 2)])
