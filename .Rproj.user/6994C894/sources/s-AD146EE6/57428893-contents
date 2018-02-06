@@ -1,3 +1,26 @@
+install.packages("igraph")
+install.packages("utils")
+install.packages("seqinr")
+## try http:// if https:// URLs are not supported
+source("https://bioconductor.org/biocLite.R")
+biocLite("Biostrings")
+## try http:// if https:// URLs are not supported
+source("https://bioconductor.org/biocLite.R")
+biocLite("STRINGdb")
+
+install.packages("devtools")
+install.packages("roxygen2")
+install.packages("testthat")
+
+library(devtools)
+library(roxygen2)
+library(igraph)
+library(utils)
+library(seqinr)
+library(Biostrings)
+library(STRINGdb)
+
+
 for (i in seq_len( (l - 1))) {
   node_tem <- apply(OPS[c((i + 1) : l), ], 1, function(x){
     a = c(as.character(OPS[i,1]) , as.character(x[1]))
@@ -41,3 +64,23 @@ for (i in seq_len( (l - 1))) {
     node2 <- c(node2, unlist(node_tem)[seq(2, length(unlist(node_tem)), 2)])
   }
 }
+
+
+library(Rcpp)
+
+cppFunction(
+  "IntegerVector proc(NumericVector x) {
+  const int n = x.size();
+  IntegerVector y(n);
+  y[0] = NA_INTEGER;
+  for (int i=1; i < n; ++i) {
+    if (x[i] == x[i-1]) y[i] = y[i-1];
+    else if (x[i] > x[i-1]) y[i] = 1;
+    else y[i] = -1;
+  }
+  return y;
+}")
+
+
+node1 <- c(node1, unlist(node_tem)[seq(1, length(unlist(node_tem)), 2)])
+node2 <- c(node2, unlist(node_tem)[seq(2, length(unlist(node_tem)), 2)])
