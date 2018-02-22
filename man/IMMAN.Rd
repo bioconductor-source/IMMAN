@@ -105,7 +105,7 @@ output$maps[[2]]
 
 }
 \seealso{
-\code{\link[Biostrings]{PairwiseAlignments}}
+\code{\link[Biostrings]{pairwiseAlignment}}
 }
 \author{
 Payman Nickchi, Abdollah Safari, Minoo Ashtiani, Mohieddin Jafari
