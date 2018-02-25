@@ -1,0 +1,8 @@
+# Ignore file named `README.txt`
+README.txt
+
+# Ignore file named `.Rhistory`
+.Rhistory
+
+# Ignore file named `.Rbuildignore`
+.Rbuildignore
