@@ -1,7 +1,0 @@
-# Efficient R Programming 
-
-# devtools::install_github("csgillespie/efficient", args = "--with-keep.source")
-
-install.packages("Rcpp")
-
-efficient::test_rcpp()
