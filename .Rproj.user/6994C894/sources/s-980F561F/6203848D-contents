@@ -1,3 +1,5 @@
+library(IMMAN)
+library(testthat)
 
 test_that("IMMAN reconstruct the interlog protein network", {
 
