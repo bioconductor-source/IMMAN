@@ -1,0 +1,82 @@
+# Global Network Properties:
+library(igraph)
+library(network)
+library(WGCNA)
+
+data.list<-read.table("edgelist.giant.component.coexpression.txt",header=T,sep="\t")
+mat.net=as.matrix(data.list) # coerces the data into a two-column matrix format that igiant.comp likes
+rm(data.list)
+rownames(mat.net) <- NULL
+edge<-mat.net[,1:2]
+rm(mat.net)
+edge[,1]=as.character(edge[,1])
+edge[,2]=as.character(edge[,2])
+
+graph=graph.edgelist(edge,directed=FALSE) # turns the edgelist into a 'graph object'
+# Converting gianr component to a network object to be readable for "sna" package functions
+net<-network(edge,directed=F)
+# Converting a graph to it's adjacency matrix
+A<-as_adj(graph)
+# network connectivity equals the row sum -1
+Connectivity = apply(A,2,sum,na.rm=T)-1
+# now we evaluate the scale free topology fit of the network
+png("scaleFreePlot.coexpression.png", width = 1200, height = 600)
+scaleFreePlot(Connectivity,main="Scale Free Topology.Coexpression")
+dev.off()
+# calculate several scale free topology fitting indices
+scaleFreeFitIndex(Connectivity)
+# define the scaled connectivity
+K=Connectivity/max(Connectivity)
+# network Concepts
+net.concept<-conformityBasedNetworkConcepts(as.matrix(A))
+net.concept$fundamentalNCs
+# Fundamental network concepts
+NC=fundamentalNetworkConcepts(as.matrix(A))
+
+NC$Heterogeneity
+NC$Centralization
+NC$Density
+mean(na.omit(NC$ClusterCoef))
+
+####################################################################################################################################
+# Global Network Properties:
+# Degree distribution
+# Average clustering coefficient
+# Clustering spectrum
+# Average Diameter
+# Spectrum of shortest path lengths
+# Centralities
+
+library(igraph)
+library(network)
+
+data.list<-read.table("edgelist.giant.component.coexpression.txt",header=T,sep="\t")
+mat.net=as.matrix(data.list) # coerces the data into a two-column matrix format that igiant.comp likes
+rm(data.list)
+rownames(mat.net) <- NULL
+edge<-mat.net[,1:2]
+rm(mat.net)
+edge[,1]=as.character(edge[,1])
+edge[,2]=as.character(edge[,2])
+
+graph=graph.edgelist(edge,directed=FALSE) # turns the edgelist into a 'graph object'
+# Converting gianr component to a network object to be readable for "sna" package functions
+net<-network(edge,directed=F)
+
+# Number of connected components
+num.con.comp<-components(graph, mode = "strong")$csize
+
+# Average clustering coefficient
+clust.coef<-transitivity(graph, type="local")  # transitivity=clustering coefficients of all nodes
+mean.clust.coef<-mean(na.omit(clust.coef))
+
+library(sna)
+# the density of the graphs indicated by 
+density<-gden(net, g=NULL, diag=FALSE, mode="digraph")
+
+# Diameter of a graph 
+diam<-diameter(graph, directed = F, unconnected = TRUE, weights = NULL)
+
+# Network heterogeneity
+graph.adj<-as_adj(graph)
+het<-sqrt(var(as.numeric(graph.adj)))/mean(as.numeric(graph.adj))
