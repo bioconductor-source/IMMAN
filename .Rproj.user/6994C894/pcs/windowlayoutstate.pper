@@ -1,23 +1,14 @@
 {
     "left" : {
         "panelheight" : 646,
-<<<<<<< HEAD:.Rproj.user/6994C894/pcs/windowlayoutstate.pper
-        "splitterpos" : 178,
-        "topwindowstate" : "HIDE",
-=======
-        "splitterpos" : 350,
+        "splitterpos" : 273,
         "topwindowstate" : "NORMAL",
->>>>>>> 863e7b4394730f9b38219f7da3c5ebf89afd43b5:.Rproj.user/6994C894/pcs/windowlayoutstate.pper
         "windowheight" : 684
     },
     "right" : {
         "panelheight" : 646,
         "splitterpos" : 410,
-<<<<<<< HEAD:.Rproj.user/6994C894/pcs/windowlayoutstate.pper
-        "topwindowstate" : "MINIMIZE",
-=======
         "topwindowstate" : "NORMAL",
->>>>>>> 863e7b4394730f9b38219f7da3c5ebf89afd43b5:.Rproj.user/6994C894/pcs/windowlayoutstate.pper
         "windowheight" : 684
     }
 }
