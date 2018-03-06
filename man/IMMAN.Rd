@@ -68,13 +68,13 @@ IPN with different degrees of conservation to have better protein function
 prediction and PPIN analysis.
 }
 \examples{
-data(FruitFly)
+data(H.sapiens)
 data(R.norvegicus)
 
-ProteinLists = list(as.character(FruitFly$V1), as.character(R.norvegicus$V1))
+ProteinLists = list(as.character(Celegance$V1), as.character(FruitFly$V1))
 
-List1_Species_ID = 7227  # taxonomy ID List1 FruitFly
-List2_Species_ID = 10116  # taxonomy ID List2 R.norvegicus
+List1_Species_ID = 6239  # taxonomy ID List1 Celegance
+List2_Species_ID = 7227  # taxonomy ID List2 FruitFly
 
 Species_IDs  = c(List1_Species_ID, List2_Species_ID)
 
