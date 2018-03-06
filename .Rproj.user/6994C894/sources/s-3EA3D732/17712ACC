@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1520322004035.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "778150145",
+    "id" : "17712ACC",
+    "lastKnownWriteTime" : 1520322149,
+    "last_content_update" : 1520322149172,
+    "path" : "C:/Users/MinOoO/Desktop/IMMAN/IMMAN/R/IMMAN.R",
+    "project_path" : "R/IMMAN.R",
+    "properties" : {
+        "cursorPosition" : "54,26",
+        "scrollLine" : "40"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
