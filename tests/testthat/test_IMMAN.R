@@ -3,7 +3,7 @@ library(testthat)
 
 test_that("IMMAN reconstruct the interlog protein network", {
 
- result <- IMMAN(ProteinLists=list(as.character(Celegance$V1[25,]), as.character(FruitFly$V1[25,])),
+ result <- IMMAN(ProteinLists=list(as.character(Celegance[1:25,]), as.character(FruitFly[1:25,])),
                  fileNames=NULL, Species_IDs  = c(6239, 7227),
         identityU = 30,
         substitutionMatrix = "BLOSUM62",
