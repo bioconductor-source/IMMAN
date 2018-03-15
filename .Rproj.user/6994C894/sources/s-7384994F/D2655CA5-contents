@@ -1,0 +1,20 @@
+for (i in seq_len( list_num)) {
+  
+  string_db_list <- c(string_db_list, list(STRINGdb$new(version = STRINGversion,
+                                                        species= Species_IDs[[i]],
+                                                        score_threshold = score_threshold,
+                                                        input_directory = getwd())))
+  bfc = BiocFileCache("C:/Users/BiocFileCache")
+  
+  path = bfcnew(bfc, "STRING_DB Downloaded Files")
+  
+  save(string_db_list, file=path)
+}
+
+
+path = bfcpath(bfc, c("7227__protein_aliases_tf.tsv","7227__protein_links.tsv","7227__proteins.tsv",
+                      "6239__protein_aliases_tf.tsv","6239__protein_links.tsv","6239__proteins.tsv",
+                      "10116__protein_aliases_tf.tsv","10116__protein_links.tsv","10116__proteins.tsv",
+                      "9606__protein_aliases_tf.tsv","9606__protein_links.tsv","9606__proteins.tsv"))
+load(path)
+
