@@ -92,7 +92,7 @@
 #' @importFrom igraph layout_in_circle
 #' @importFrom seqinr read.fasta
 #' @importFrom BiocFileCache BiocFileCache
-#' @importFrom BiocFileCache bfcadd
+#' @importFrom BiocFileCache bfcnew
 
 IMMAN <- function(ProteinLists, fileNames = NULL, Species_IDs,
                   identityU, substitutionMatrix,

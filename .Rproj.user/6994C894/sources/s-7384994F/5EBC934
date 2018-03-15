@@ -5,15 +5,15 @@
     "dirty" : false,
     "encoding" : "UTF-8",
     "folds" : "",
-    "hash" : "0",
+    "hash" : "3074987287",
     "id" : "5EBC934",
-    "lastKnownWriteTime" : 1521130477,
-    "last_content_update" : 1521130477314,
+    "lastKnownWriteTime" : 1521130659,
+    "last_content_update" : 1521130659336,
     "path" : "C:/Users/MinOoO/Desktop/IMMAN/IMMAN/R/IMMAN.R",
     "project_path" : "R/IMMAN.R",
     "properties" : {
-        "cursorPosition" : "275,0",
-        "scrollLine" : "266"
+        "cursorPosition" : "94,35",
+        "scrollLine" : "82"
     },
     "relative_order" : 3,
     "source_on_save" : false,
