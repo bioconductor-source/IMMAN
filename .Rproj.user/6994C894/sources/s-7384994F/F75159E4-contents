@@ -1,0 +1,8 @@
+string_db_list <- list()
+map_list <- list()
+for (i in seq_len( list_num)) {
+  string_db_list <- c(string_db_list, list(STRINGdb$new(version = STRINGversion,
+                                                        species= Species_IDs[[i]],
+                                                        score_threshold = score_threshold,
+                                                        input_directory = getwd())))
+}
