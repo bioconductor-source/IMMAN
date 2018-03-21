@@ -27,7 +27,7 @@
 #' @param score_threshold numeric; STRINGdb score for protein protein interaction (PPI) selection in STRING database
 #' @param STRINGversion character; indicating which version of STRING database should program
 #' search in for the score of PPIs.
-#' @param InputDirectory By default is tempdir()`. You can set this parameter to indicate where
+#' @param InputDirectory By default is getwd(). You can set this parameter to indicate where
 #' the downloaded file from STRING should be saved.
 #' @seealso \code{\link[Biostrings]{pairwiseAlignment}}
 #' @return
@@ -73,7 +73,7 @@
 #'               gapOpening, gapExtension, BestHit,
 #'               coverage, NetworkShrinkage,
 #'               score_threshold, STRINGversion,
-#'               InputDirectory = tempdir())
+#'               InputDirectory = getwd())
 #'
 #'output$IPNEdges
 #'output$IPNNodes
@@ -92,14 +92,14 @@
 #' @importFrom igraph layout_in_circle
 #' @importFrom seqinr read.fasta
 #' @importFrom BiocFileCache BiocFileCache
-#' @importFrom BiocFileCache bfcnew
+#' @importFrom BiocFileCache bfcadd
 
 IMMAN <- function(ProteinLists, fileNames = NULL, Species_IDs,
                   identityU, substitutionMatrix,
                   gapOpening, gapExtension, BestHit,
                   coverage, NetworkShrinkage,
                   score_threshold, STRINGversion,
-                  InputDirectory = tempdir()){
+                  InputDirectory = getwd()){
 
   align <- function(pattern, subject, type){
 
@@ -192,12 +192,8 @@ IMMAN <- function(ProteinLists, fileNames = NULL, Species_IDs,
   PS_list <- list()
   for (i in seq_len( list_num)){
     message(paste("Downloading amino acid sequences of List", i, sep = ""))
-
     path <- tempfile()
     bfc <- BiocFileCache(path, ask = FALSE)
-
-    savepath <- bfcnew(bfc, "Downloaded Amino acids")
-
     PS_list <- c(PS_list, list(apply(data.frame(Protein = ProteinLists[[i]]), 1,
                                      function (x) {
                                        as.character(read.fasta(file =
@@ -206,7 +202,7 @@ IMMAN <- function(ProteinLists, fileNames = NULL, Species_IDs,
                                                                seqtype ="AA", as.string = TRUE,
                                                                set.attributes = FALSE))
                                      })))
-    save(PS_list, file=savepath)
+    add <- bfcadd(bfc, "Amino acid lists", fpath=PS_list)
   }
 
   names(PS_list) <- c(paste("PS", seq(1 : list_num), sep = ""))
@@ -277,13 +273,12 @@ IMMAN <- function(ProteinLists, fileNames = NULL, Species_IDs,
     path <- tempfile()
     bfc <- BiocFileCache(path, ask = FALSE)
 
-    savepath <- bfcnew(bfc, "PPI Downloaded Files")
-
     string_db_list <- c(string_db_list, list(STRINGdb$new(version = STRINGversion,
                                                           species= Species_IDs[[i]],
                                                           score_threshold = score_threshold,
-                                                          input_directory = tempdir())))
-    save(string_db_list, file=savepath)
+                                                          input_directory = getwd())))
+
+    add <- bfcadd(bfc, "PPI Downloaded Files", fpath=string_db_list)
   }
 
   if (list_num == 4) {
