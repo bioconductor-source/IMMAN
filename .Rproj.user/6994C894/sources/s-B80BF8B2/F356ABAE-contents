@@ -97,7 +97,7 @@ IMMAN <- function(ProteinLists, fileNames = NULL, Species_IDs,
                   gapOpening, gapExtension, BestHit,
                   coverage, NetworkShrinkage,
                   score_threshold, STRINGversion,
-                  InputDirectory = tempdir()){
+                  InputDirectory = getwd()){
 
   align <- function(pattern, subject, type){
 
