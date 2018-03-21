@@ -1,0 +1,12 @@
+for (i in seq_len( list_num)) {
+  
+  path <- tempfile()
+  bfc <- BiocFileCache(path, ask = FALSE)
+  
+  string_db_list <- c(string_db_list, list(STRINGdb$new(version = STRINGversion,
+                                                        species= Species_IDs[[i]],
+                                                        score_threshold = score_threshold,
+                                                        input_directory = getwd())))
+
+  add <- bfcadd(bfc, "PPI Downloaded Files", fpath=string_db_list)
+}

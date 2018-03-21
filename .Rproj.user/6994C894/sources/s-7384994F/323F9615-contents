@@ -1,0 +1,32 @@
+for (i in seq_len( list_num)){
+  message(paste("Downloading amino acid sequences of List", i, sep = ""))
+  PS_list <- c(PS_list, list(apply(data.frame(Protein = ProteinLists[[i]]), 1,
+                                   function (x) {
+                                     as.character(read.fasta(file =
+                                                               paste("http://www.uniprot.org/uniprot/",
+                                                                     x,".fasta",sep=""),
+                                                             seqtype ="AA", as.string = TRUE,
+                                                             set.attributes = FALSE))
+                                   })))
+}
+
+
+
+for (i in seq_len( list_num)){
+  message(paste("Downloading amino acid sequences of List", i, sep = ""))
+  
+  PS_list <- c(PS_list, list(apply(data.frame(Protein = ProteinLists[[i]]), 1,
+                                   function (x) {
+                                     as.character(read.fasta(file =
+                                                               paste("http://www.uniprot.org/uniprot/",
+                                                                     x,".fasta",sep=""),
+                                                             seqtype ="AA", as.string = TRUE,
+                                                             set.attributes = FALSE))
+                                   })))
+  bfc = BiocFileCache(tempdir())
+  
+  path = bfcnew(bfc, "Amino acid Sequences Downloaded Files")
+  
+  save(PS_list, file=path)
+
+}
