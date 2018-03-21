@@ -91,15 +91,13 @@
 #' @importFrom utils read.csv
 #' @importFrom igraph layout_in_circle
 #' @importFrom seqinr read.fasta
-#' @importFrom BiocFileCache BiocFileCache
-#' @importFrom BiocFileCache bfcadd
 
 IMMAN <- function(ProteinLists, fileNames = NULL, Species_IDs,
                   identityU, substitutionMatrix,
                   gapOpening, gapExtension, BestHit,
                   coverage, NetworkShrinkage,
                   score_threshold, STRINGversion,
-                  InputDirectory = getwd()){
+                  InputDirectory = tempdir()){
 
   align <- function(pattern, subject, type){
 
@@ -192,8 +190,6 @@ IMMAN <- function(ProteinLists, fileNames = NULL, Species_IDs,
   PS_list <- list()
   for (i in seq_len( list_num)){
     message(paste("Downloading amino acid sequences of List", i, sep = ""))
-    path <- tempfile()
-    bfc <- BiocFileCache(path, ask = FALSE)
     PS_list <- c(PS_list, list(apply(data.frame(Protein = ProteinLists[[i]]), 1,
                                      function (x) {
                                        as.character(read.fasta(file =
@@ -202,7 +198,6 @@ IMMAN <- function(ProteinLists, fileNames = NULL, Species_IDs,
                                                                seqtype ="AA", as.string = TRUE,
                                                                set.attributes = FALSE))
                                      })))
-    add <- bfcadd(bfc, "Amino acid lists", fpath=PS_list)
   }
 
   names(PS_list) <- c(paste("PS", seq(1 : list_num), sep = ""))
@@ -267,20 +262,12 @@ IMMAN <- function(ProteinLists, fileNames = NULL, Species_IDs,
 
   string_db_list <- list()
   map_list <- list()
-
   for (i in seq_len( list_num)) {
-
-    path <- tempfile()
-    bfc <- BiocFileCache(path, ask = FALSE)
-
     string_db_list <- c(string_db_list, list(STRINGdb$new(version = STRINGversion,
                                                           species= Species_IDs[[i]],
                                                           score_threshold = score_threshold,
                                                           input_directory = getwd())))
-
-    add <- bfcadd(bfc, "PPI Downloaded Files", fpath=string_db_list)
   }
-
   if (list_num == 4) {
     # 1-2
     x_tem1 <- rep(names(tem_list[[1]]), unlist(lapply(tem_list[[1]], length)))

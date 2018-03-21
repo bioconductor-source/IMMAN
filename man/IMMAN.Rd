@@ -6,7 +6,8 @@
 \usage{
 IMMAN(ProteinLists, fileNames = NULL, Species_IDs, identityU,
   substitutionMatrix, gapOpening, gapExtension, BestHit, coverage,
-  NetworkShrinkage, score_threshold, STRINGversion, InputDirectory = getwd())
+  NetworkShrinkage, score_threshold, STRINGversion,
+  InputDirectory = tempdir())
 }
 \arguments{
 \item{ProteinLists}{a list in which each element contains protein names of a species as a character vector.
