@@ -43,7 +43,7 @@ reconstruct an edge of OPS pair in the IPN (Interlog Protein Network)}
 \item{STRINGversion}{character; indicating which version of STRING database should program
 search in for the score of PPIs.}
 
-\item{InputDirectory}{By default is getwd(). You can set this parameter to indicate where
+\item{InputDirectory}{By default is tempdir()`. You can set this parameter to indicate where
 the downloaded file from STRING should be saved.}
 }
 \value{
@@ -95,7 +95,7 @@ output = IMMAN(ProteinLists, fileNames=NULL, Species_IDs,
               gapOpening, gapExtension, BestHit,
               coverage, NetworkShrinkage,
               score_threshold, STRINGversion,
-              InputDirectory = getwd())
+              InputDirectory = tempdir())
 
 output$IPNEdges
 output$IPNNodes

@@ -27,7 +27,7 @@
 #' @param score_threshold numeric; STRINGdb score for protein protein interaction (PPI) selection in STRING database
 #' @param STRINGversion character; indicating which version of STRING database should program
 #' search in for the score of PPIs.
-#' @param InputDirectory By default is tempdir()`. You can set this parameter to indicate where
+#' @param InputDirectory By default is getwd(). You can set this parameter to indicate where
 #' the downloaded file from STRING should be saved.
 #' @seealso \code{\link[Biostrings]{pairwiseAlignment}}
 #' @return
@@ -73,7 +73,7 @@
 #'               gapOpening, gapExtension, BestHit,
 #'               coverage, NetworkShrinkage,
 #'               score_threshold, STRINGversion,
-#'               InputDirectory = tempdir())
+#'               InputDirectory = getwd())
 #'
 #'output$IPNEdges
 #'output$IPNNodes
@@ -99,7 +99,7 @@ IMMAN <- function(ProteinLists, fileNames = NULL, Species_IDs,
                   gapOpening, gapExtension, BestHit,
                   coverage, NetworkShrinkage,
                   score_threshold, STRINGversion,
-                  InputDirectory = tempdir()){
+                  InputDirectory = getwd()){
 
   align <- function(pattern, subject, type){
 
@@ -282,7 +282,7 @@ IMMAN <- function(ProteinLists, fileNames = NULL, Species_IDs,
     string_db_list <- c(string_db_list, list(STRINGdb$new(version = STRINGversion,
                                                           species= Species_IDs[[i]],
                                                           score_threshold = score_threshold,
-                                                          input_directory = tempdir())))
+                                                          input_directory = getwd())))
     save(string_db_list, file=savepath)
   }
 
