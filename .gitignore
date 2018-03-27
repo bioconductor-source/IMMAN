@@ -1,4 +1,4 @@
-/IMMAN.Rproj
-/.Rhistory
-/.Rbuildignore
-/.Rproj.user
+*.Rproj
+*.Rhistory
+*.Rbuildignore
+*.Rproj.user
