@@ -7,7 +7,7 @@
 IMMAN(ProteinLists, fileNames = NULL, Species_IDs, identityU,
   substitutionMatrix, gapOpening, gapExtension, BestHit, coverage,
   NetworkShrinkage, score_threshold, STRINGversion,
-  InputDirectory = tempdir())
+  InputDirectory = getwd())
 }
 \arguments{
 \item{ProteinLists}{a list in which each element contains protein names of a species as a character vector.
@@ -33,7 +33,7 @@ which is the reciprocal best hit in sequence similarity analysis, whilst,
 if it is FALSE, indicates a nonreciprocal best hit}
 
 \item{coverage}{Number of connected proteins pairs in each Ortholog Protein Set (OPS) pair
-(termed as “coverage”) to
+(termed as "coverage") to
 reconstruct an edge of OPS pair in the IPN (Interlog Protein Network)}
 
 \item{NetworkShrinkage}{logical; if TRUE OPSs that are similar to each other would be merged.}
@@ -43,7 +43,7 @@ reconstruct an edge of OPS pair in the IPN (Interlog Protein Network)}
 \item{STRINGversion}{character; indicating which version of STRING database should program
 search in for the score of PPIs.}
 
-\item{InputDirectory}{By default is tempdir()`. You can set this parameter to indicate where
+\item{InputDirectory}{By default is getwd(). You can set this parameter to indicate where
 the downloaded file from STRING should be saved.}
 }
 \value{
@@ -95,7 +95,7 @@ output = IMMAN(ProteinLists, fileNames=NULL, Species_IDs,
               gapOpening, gapExtension, BestHit,
               coverage, NetworkShrinkage,
               score_threshold, STRINGversion,
-              InputDirectory = tempdir())
+              InputDirectory = getwd())
 
 output$IPNEdges
 output$IPNNodes
