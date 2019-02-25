@@ -11,4 +11,3 @@
 #' data("Celegance")
 #' print(Celegance)
 NULL
-s

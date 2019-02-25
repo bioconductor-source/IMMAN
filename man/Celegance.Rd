@@ -9,7 +9,7 @@
 data("Celegance")
 }
 \description{
-A sample collection of 49 UNIPROT_AC of Fruit Fly species.
+A sample collection of 49 UNIPROT_AC of Celegance species.
 }
 \examples{
 data("Celegance")
