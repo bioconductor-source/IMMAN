@@ -1,6 +1,6 @@
 ---
 title: "IMMAN"
-author: "Payman Nickchi, Abdollah Safari, Minoo Ashtiani, Mohieddin Jafari"
+author: "Minoo Ashtiani, Payman Nickchi, Abdollah Safari, Mehdi Mirzaie, Mohieddin Jafari"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >

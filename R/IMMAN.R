@@ -45,7 +45,7 @@
 #'
 #' IPN : an igraph object representing the interlog protein network.
 #'
-#' @author Payman Nickchi, Abdollah Safari, Minoo Ashtiani, Mohieddin Jafari
+#' @author Minoo Ashtiani, Payman Nickchi, Abdollah Safari, Mehdi Mirzaie, Mohieddin Jafari
 #' @examples
 #' data(H.sapiens)
 #' data(R.norvegicus)

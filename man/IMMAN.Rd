@@ -109,5 +109,5 @@ output$maps[[2]]
 \code{\link[Biostrings]{pairwiseAlignment}}
 }
 \author{
-Payman Nickchi, Abdollah Safari, Minoo Ashtiani, Mohieddin Jafari
+Minoo Ashtiani, Payman Nickchi, Abdollah Safari, Mehdi Mirzaie, Mohieddin Jafari
 }
