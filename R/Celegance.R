@@ -1,6 +1,6 @@
 #' @title Celegance
 #'
-#' @description A sample collection of 49 UNIPROT_AC of Fruit Fly species.
+#' @description A sample collection of 49 UNIPROT_AC of Celegance species.
 #' @name Celegance
 #' @docType data
 #' @usage data("Celegance")
@@ -11,3 +11,4 @@
 #' data("Celegance")
 #' print(Celegance)
 NULL
+s
