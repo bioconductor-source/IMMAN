@@ -4,10 +4,21 @@
 \alias{IMMAN}
 \title{Interlog protein network reconstruction by Mapping and Mining ANalysis}
 \usage{
-IMMAN(ProteinLists, fileNames = NULL, Species_IDs, identityU,
-  substitutionMatrix, gapOpening, gapExtension, BestHit, coverage,
-  NetworkShrinkage, score_threshold, STRINGversion,
-  InputDirectory = getwd())
+IMMAN(
+  ProteinLists,
+  fileNames = NULL,
+  Species_IDs,
+  identityU,
+  substitutionMatrix,
+  gapOpening,
+  gapExtension,
+  BestHit,
+  coverage,
+  NetworkShrinkage,
+  score_threshold,
+  STRINGversion,
+  InputDirectory = getwd()
+)
 }
 \arguments{
 \item{ProteinLists}{a list in which each element contains protein names of a species as a character vector.
@@ -69,8 +80,8 @@ IPN with different degrees of conservation to have better protein function
 prediction and PPIN analysis.
 }
 \examples{
-data(H.sapiens)
-data(R.norvegicus)
+data(Celegance)
+data(FruitFly)
 
 ProteinLists = list(as.character(Celegance$V1), as.character(FruitFly$V1))
 
