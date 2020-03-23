@@ -95,6 +95,6 @@ output$maps
 output$maps[[2]]
 ```
 
-# Citation
+# Citations
 
 Ashtiani M, Nickchi P, Jahangiri-Tazehkand S, Safari A, Mirzaie M, Jafari M. IMMAN: an R/Bioconductor package for Interolog protein network reconstruction, mapping and mining analysis. BMC bioinformatics. 2019 Dec;20(1):73.
