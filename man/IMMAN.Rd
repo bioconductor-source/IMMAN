@@ -85,8 +85,8 @@ data(R.norvegicus)
 
 ProteinLists = list(as.character(H.sapiens$V1), as.character(R.norvegicus$V1))
 
-List1_Species_ID = 9606  # taxonomy ID List1 H.sapiens
-List2_Species_ID = 10116  # taxonomy ID List2 R.norvegicus
+List1_Species_ID = 9606  # taxonomy ID H.sapiens
+List2_Species_ID = 10116  # taxonomy ID R.norvegicus
 
 Species_IDs  = c(List1_Species_ID, List2_Species_ID)
 
