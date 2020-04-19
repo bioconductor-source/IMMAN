@@ -30,13 +30,17 @@ For illustration, we will read two datasets from different species which can be 
 data("FruitFly")
 data("Celegance")
 
+subFruitFly <- as.character(FruitFly$V1)[1:20]
+
+subCelegance <- as.character(Celegance$V1)[1:20]
+
 ```
 
 Then, we have to make a list of dataset species and set their taxanomy IDs. 
 
 ```{r}
 
-ProteinLists = list(as.character(FruitFly$V1), as.character(Celegance$V1))
+ProteinLists = list(subFruitFly, subCelegance)
 
 List1_Species_ID = 7227    # taxonomy ID FruitFly
 List2_Species_ID = 6239    # taxonomy ID Celegance
