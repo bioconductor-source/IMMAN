@@ -83,7 +83,10 @@ prediction and PPIN analysis.
 data("FruitFly")
 data("Celegance")
 
-ProteinLists = list(as.character(FruitFly$V1), as.character(Celegance$V1))
+subFruitFly <- as.character(FruitFly$V1)[1:10]
+subCelegance <- as.character(Celegance$V1)[1:10]
+
+ProteinLists = list(subFruitFly, subCelegance)
 
 List1_Species_ID = 7227  # taxonomy ID FruitFly
 List2_Species_ID = 6239  # taxonomy ID Celegance
