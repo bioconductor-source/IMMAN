@@ -4,7 +4,9 @@
 \name{H.sapiens}
 \alias{H.sapiens}
 \title{Homo sapiens (Human)}
-\format{a character vector}
+\format{
+a character vector
+}
 \usage{
 data("H.sapiens")
 }

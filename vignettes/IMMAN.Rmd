@@ -71,7 +71,7 @@ NetworkShrinkage = FALSE
 coverage = 1
 BestHit = TRUE
 score_threshold = 400
-STRINGversion="10"
+STRINGversion="11"
 
 ```
 

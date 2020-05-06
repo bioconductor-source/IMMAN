@@ -101,7 +101,7 @@ NetworkShrinkage = FALSE
 coverage = 1
 BestHit = TRUE
 score_threshold = 400
-STRINGversion="10"
+STRINGversion="11"
 
 # Run the IMMAN function for the parameters
 output = IMMAN(ProteinLists, fileNames=NULL, Species_IDs,

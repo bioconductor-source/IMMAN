@@ -4,7 +4,9 @@
 \name{FruitFly}
 \alias{FruitFly}
 \title{Fruit Fly}
-\format{a character vector}
+\format{
+a character vector
+}
 \usage{
 data("FruitFly")
 }

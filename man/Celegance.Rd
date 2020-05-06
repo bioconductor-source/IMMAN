@@ -4,7 +4,9 @@
 \name{Celegance}
 \alias{Celegance}
 \title{Celegance}
-\format{a character vector}
+\format{
+a character vector
+}
 \usage{
 data("Celegance")
 }

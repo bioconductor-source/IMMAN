@@ -49,8 +49,11 @@
 #' @examples
 #' data("FruitFly")
 #' data("Celegance")
-#'
-#' ProteinLists = list(as.character(FruitFly$V1), as.character(Celegance$V1))
+#' 
+#' subFruitFly <- as.character(FruitFly$V1)[1:10]
+#' subCelegance <- as.character(Celegance$V1)[1:10]
+#' 
+#' ProteinLists = list(subFruitFly, subCelegance)
 #'
 #' List1_Species_ID = 7227  # taxonomy ID FruitFly
 #' List2_Species_ID = 6239  # taxonomy ID Celegance
@@ -65,7 +68,7 @@
 #'coverage = 1
 #'BestHit = TRUE
 #'score_threshold = 400
-#'STRINGversion="10"
+#'STRINGversion="11"
 #'
 #'# Run the IMMAN function for the parameters
 #' output = IMMAN(ProteinLists, fileNames=NULL, Species_IDs,

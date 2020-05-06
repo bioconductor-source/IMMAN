@@ -4,7 +4,9 @@
 \name{R.norvegicus}
 \alias{R.norvegicus}
 \title{Rattus norvegicus (Rat)}
-\format{a character vector}
+\format{
+a character vector
+}
 \usage{
 data("R.norvegicus")
 }
