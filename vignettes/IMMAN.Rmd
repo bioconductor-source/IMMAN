@@ -23,12 +23,13 @@ library(IMMAN)
 
 ```
 
+
 For illustration, we will read two datasets from different species which can be accessed via:
 
 ```{r}
 
-data("FruitFly")
-data("Celegance")
+data(FruitFly)
+data(Celegance)
 
 subFruitFly <- as.character(FruitFly$V1)[1:10]
 

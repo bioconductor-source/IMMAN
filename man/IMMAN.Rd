@@ -80,8 +80,9 @@ IPN with different degrees of conservation to have better protein function
 prediction and PPIN analysis.
 }
 \examples{
-data("FruitFly")
-data("Celegance")
+
+data(FruitFly)
+data(Celegance)
 
 subFruitFly <- as.character(FruitFly$V1)[1:10]
 subCelegance <- as.character(Celegance$V1)[1:10]

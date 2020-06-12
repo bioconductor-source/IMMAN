@@ -47,8 +47,9 @@
 #'
 #' @author Minoo Ashtiani, Payman Nickchi, Abdollah Safari, Mehdi Mirzaie, Mohieddin Jafari
 #' @examples
-#' data("FruitFly")
-#' data("Celegance")
+#' 
+#' data(FruitFly)
+#' data(Celegance)
 #' 
 #' subFruitFly <- as.character(FruitFly$V1)[1:10]
 #' subCelegance <- as.character(Celegance$V1)[1:10]
