@@ -13,7 +13,7 @@ test_that("IMMAN reconstruct the interlog protein network", {
         coverage = 1,
         BestHit = TRUE,
         score_threshold = 400,
-        STRINGversion="10",
+        STRINGversion="11",
         InputDirectory = getwd())
 
  expect_that( result$IPNEdges, is_a("data.frame") )
