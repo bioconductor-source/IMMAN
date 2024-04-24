@@ -29,7 +29,7 @@
 #' search in for the score of PPIs.
 #' @param InputDirectory By default is getwd(). You can set this parameter to indicate where
 #' the downloaded file from STRING should be saved.
-#' @seealso \code{\link[Biostrings]{pairwiseAlignment}}
+#' @seealso \code{\link[pwalign]{pairwiseAlignment}}
 #' @return
 #' a list contaning four elements:
 #'
@@ -87,8 +87,8 @@
 #'output$maps[[2]]
 #'
 #' @export
-#' @importFrom Biostrings pairwiseAlignment
-#' @importFrom Biostrings pid
+#' @importFrom pwalign pairwiseAlignment
+#' @importFrom pwalign pid
 #' @importFrom igraph graph_from_data_frame
 #' @importFrom graphics plot
 #' @importFrom STRINGdb STRINGdb

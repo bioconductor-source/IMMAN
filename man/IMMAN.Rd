@@ -121,7 +121,7 @@ output$maps[[2]]
 
 }
 \seealso{
-\code{\link[Biostrings]{pairwiseAlignment}}
+\code{\link[pwalign]{pairwiseAlignment}}
 }
 \author{
 Minoo Ashtiani, Payman Nickchi, Abdollah Safari, Mehdi Mirzaie, Mohieddin Jafari
